@@ -1,5 +1,10 @@
 {
-  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
+  "extends": ["tslint-react"],
+  //"extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
+  //"extends": [],
+  //"defaultSeverity": "warning",
+  //both lines above are recommended to replace the line above them, but we'll see... "the default is a bit overzealous."
+  //https://github.com/Microsoft/TypeScript-React-Starter
   "linterOptions": {
     "exclude": [
       "config/**/*.js",
