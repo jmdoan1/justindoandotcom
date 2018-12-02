@@ -15,15 +15,24 @@ class App extends React.Component {
         <p className="App-intro">
           To get started, edit <code>src/App.tsx</code> and save to reload.
         </p>
-        <ProjectThumbnail
-          name="WatchFlippers"
-          tagline="An app"
-          personal={false}
-          client={true}
-          W2={false} 
-          logoString="wflogo.png"
-          logoBgColor="black"
-        />
+        <div>
+          <ProjectThumbnail
+            name="WatchFlippers"
+            tagline="An app"
+            personal={false}
+            client={true}
+            W2={false} 
+            logoString="wflogo.png"
+            logoBgColor="black"
+          />
+          <ProjectThumbnail
+            name="FameStream"
+            tagline="Another app"
+            personal={false}
+            client={true}
+            W2={false}
+          />
+        </div>
       </div>
     );
   }

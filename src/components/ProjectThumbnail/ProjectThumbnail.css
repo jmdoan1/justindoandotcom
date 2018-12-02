@@ -20,19 +20,19 @@
 .ThumbnailTitle {
     margin: 0px;
     font-style: italic;
-    text-align: left;
+    /* text-align: left; */
 }
 
 .ThumbnailTagline {
     color: gray;
     margin: 0px;
     font-style: italic;
-    text-align: right;
+    /* text-align: left; */
 }
 
 .ThumbnailSupporter {
     color: darkgray;
     margin: 0px;
     font-style: italic;
-    text-align: right;
+    /* text-align: center; */
 }
