@@ -1,8 +1,38 @@
 .ProjectThumbnail {
     border: 1px red double;
-    background-color: lightgrey;
+    background-color: lightgray;
     box-shadow: 0 2px 3px #ccc;
     padding: 5px;
     margin: 5px;
+    box-align: center;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 15px;
+}
+
+.ThumbnailLogo {
+    width: 100%;
+    padding-bottom: 5px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.ThumbnailTitle {
+    margin: 0px;
+    font-style: italic;
     text-align: left;
+}
+
+.ThumbnailTagline {
+    color: gray;
+    margin: 0px;
+    font-style: italic;
+    text-align: right;
+}
+
+.ThumbnailSupporter {
+    color: darkgray;
+    margin: 0px;
+    font-style: italic;
+    text-align: right;
 }

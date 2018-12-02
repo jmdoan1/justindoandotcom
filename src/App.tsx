@@ -21,6 +21,8 @@ class App extends React.Component {
           personal={false}
           client={true}
           W2={false} 
+          logoString="wflogo.png"
+          logoBgColor="black"
         />
       </div>
     );
