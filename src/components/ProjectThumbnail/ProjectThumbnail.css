@@ -2,6 +2,7 @@
     border: 1px red double;
     background-color: lightgrey;
     box-shadow: 0 2px 3px #ccc;
+    padding: 5px;
     margin: 5px;
-    width: 30%;
+    text-align: left;
 }

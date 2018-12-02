@@ -1,4 +1,5 @@
 import * as React from 'react';
+import './ProjectThumbnail.css';
 
 export interface Props {
     name: string;
