@@ -11,8 +11,6 @@ export interface Props {
     personal: boolean;
     client: boolean;
     W2: boolean;
-    dateStart?: Date;
-    dateMVP?: Date;
     logoString?: string;
     logoBgColor?: Color;
 }
@@ -20,22 +18,33 @@ export interface Props {
 export default class ProjectThumbnail extends React.PureComponent<Props> {
     render() {
         let logoDisplay = null
-        if (this.props.logoString != null) {
+        if (this.props.logoString) {
             const image = require('../../assets/images/' + this.props.logoString)
             logoDisplay = (
                         <img 
                             alt={this.props.logoString} 
                             className="ThumbnailLogo"
-                            style={{ backgroundColor: this.props.logoBgColor || this.props.logoBgColor || "" }} 
-                            src={String(image)} 
+                            style={{ backgroundColor: this.props.logoBgColor || "" }} 
+                            src={String(image)}
                         />)
         }
+
+        let taglineDisplay = null
+        if (this.props.tagline) {
+            taglineDisplay = <h4 className="ThumbnailTagline">{this.props.tagline}</h4>
+        }
+
+        let supporterDisplay = null
+        if (this.props.personal || this.props.client || this.props.W2) {
+            supporterDisplay = <p className="ThumbnailSupporter">{this.props.personal ? "Personal" : this.props.client ? "Client" : "W2"}</p>
+        }
+
         return (
             <div className="ProjectThumbnail">
                 {logoDisplay}
                 <h2 className="ThumbnailTitle">{this.props.name}</h2>
-                <h4 className="ThumbnailTagline">{this.props.tagline}</h4>
-                <p className="ThumbnailSupporter">{this.props.personal ? "Personal" : this.props.client ? "Client" : this.props.W2 ? "W2" : ""}</p>
+                {taglineDisplay}
+                {supporterDisplay}
             </div>
         );
     }

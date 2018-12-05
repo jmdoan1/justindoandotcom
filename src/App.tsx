@@ -18,7 +18,7 @@ class App extends React.Component {
         <div>
           <ProjectThumbnail
             name="WatchFlippers"
-            tagline="An app"
+            tagline="An App"
             personal={false}
             client={true}
             W2={false} 
@@ -27,9 +27,9 @@ class App extends React.Component {
           />
           <ProjectThumbnail
             name="FameStream"
-            tagline="Another app"
+            tagline="Another App"
             personal={false}
-            client={true}
+            client={false}
             W2={false}
           />
         </div>
