@@ -6,7 +6,7 @@ class App extends React.Component {
   public render() {
     return (
       <div className="App">
-        <header className="App-header">
+        <header className="Header">
           <h1 className="HeaderName">Justin Doan</h1>
         </header>
         <div>

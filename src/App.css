@@ -1,5 +1,13 @@
+/* html, body, #app, #app>div {
+  height: 100% !important;
+  margin: 0px;
+  min-height: 100vh;
+} */
+
 .App {
   text-align: center;
+  background-color: #474747;
+  min-height: 100vh;
 }
 
 .App-logo {
@@ -7,18 +15,18 @@
   height: 80px;
 }
 
-.App-header {
+.Header {
   background-color: #909090;
   height: fit-content;
   padding: 20px;
   padding-bottom: 0px;
-  color: white;
+  color: #474747;
 }
 
 .HeaderName {
   text-align: left;
-  font-size: 65px;
-  margin: 0px;
+  font-size: 75px;
+  margin: -22px;
   padding: 0px;
 }
 
