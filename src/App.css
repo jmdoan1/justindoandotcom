@@ -6,28 +6,13 @@
 
 .App {
   text-align: center;
-  background-color: #474747;
+  background-color: #404040;
   min-height: 100vh;
 }
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
-}
-
-.Header {
-  background-color: #909090;
-  height: fit-content;
-  padding: 20px;
-  padding-bottom: 0px;
-  color: #474747;
-}
-
-.HeaderName {
-  text-align: left;
-  font-size: 75px;
-  margin: -22px;
-  padding: 0px;
 }
 
 @keyframes App-logo-spin {

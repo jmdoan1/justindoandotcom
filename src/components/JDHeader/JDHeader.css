@@ -1,0 +1,32 @@
+.JDHeader {
+    background-color: #909090;
+    width: 100%;
+    height: fit-content;
+  }
+  
+  .JDHeaderTable {
+    width: 100%;
+  }
+  
+  .JDHeaderName {
+    text-align: left;
+    font-size: 6vw;
+    font-weight: bolder;
+    width: fit-content;
+    height: fit-content;
+    margin-left: -1.25vw;
+    margin-bottom: -1.85vw;
+    margin-top: 0;
+    margin-right: 0;
+    padding: 0;
+    color: #404040;
+  }
+  
+  .JDHeaderButton{
+    height: 50%;
+    background-color:rgba(255, 255, 255, 0.5);
+    color: white;
+    font-weight: bold;
+    margin-bottom: 0%;
+    padding: 0%;
+  }

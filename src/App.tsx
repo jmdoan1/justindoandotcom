@@ -1,14 +1,13 @@
 import * as React from 'react';
-import ProjectThumbnail from './components/ProjectThumbnail/ProjectThumbnail';
 import './App.css';
+import ProjectThumbnail from './components/ProjectThumbnail/ProjectThumbnail';
+import JDHeader from './components/JDHeader/JDHeader';
 
 class App extends React.Component {
   public render() {
     return (
       <div className="App">
-        <header className="Header">
-          <h1 className="HeaderName">Justin Doan</h1>
-        </header>
+        <JDHeader name="Justin Doan" />
         <div>
           <ProjectThumbnail
             name="WatchFlippers"
