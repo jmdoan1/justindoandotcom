@@ -3,10 +3,16 @@ import './JDHeader.css';
 
 export interface Props {
     name: string;
+    pages: string[];
 }
 
-export default class ProjectThumbnail extends React.PureComponent<Props> {
+export default class JDHeader extends React.PureComponent<Props> {
     render() {
+
+        function getButtonClass(page: string) {
+            return "JDHeaderButton"
+        }
+
         return(
             <header className="JDHeader">
                 <table cellSpacing={0} cellPadding={0} className="JDHeaderTable">
@@ -14,14 +20,14 @@ export default class ProjectThumbnail extends React.PureComponent<Props> {
                         <td>
                             <p className="JDHeaderName">{this.props.name}</p>
                         </td>
-                        <td className="JDHeaderButton">
-                            <p>test 1</p>
+                        <td className="JDHeaderButtonSelected">
+                            <p>Projects</p>
                         </td>
-                        <td className="JDHeaderButton">
-                            <p>test 2</p>
+                        <td className={getButtonClass("Tutorials")}>
+                            <p>Tutorials</p>
                         </td>
-                        <td className="JDHeaderButton">
-                            <p>test 3</p>
+                        <td className="JDHeaderButtonHovered">
+                            <p>About</p>
                         </td>
                     </tr>
                 </table>

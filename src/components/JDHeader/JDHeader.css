@@ -16,17 +16,32 @@
     font-weight: bolder;
     width: fit-content;
     height: fit-content;
-    margin-left: -1vw;
+    margin-left: -0.5vw;
     margin-bottom: -1.5vw;
     margin-top: 0;
     margin-right: 0;
     padding: 0;
-    color: #404040;
+    color: #404040; /* same as .App background-color */
   }
   
   .JDHeaderButton{
-    height: 50%;
     background-color:rgba(255, 255, 255, 0.5); 
+    color: white;
+    font-weight: bold;
+    margin: 0%;
+    padding: 0%;
+  }
+
+  .JDHeaderButtonHovered{
+    background-color:rgba(255, 255, 255, 0.65); 
+    color: white;
+    font-weight: bold;
+    margin: 0%;
+    padding: 0%;
+  }
+
+  .JDHeaderButtonSelected{
+    background-color: #404040; /* same as .App background-color */
     color: white;
     font-weight: bold;
     margin: 0%;

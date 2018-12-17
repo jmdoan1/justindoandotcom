@@ -7,7 +7,10 @@ class App extends React.Component {
   public render() {
     return (
       <div className="App">
-        <JDHeader name="Justin Doan" />
+        <JDHeader 
+          name="Justin Doan"
+          pages={["Projects", "Tutorials", "About"]}
+        />
         <div>
           <ProjectThumbnail
             name="WatchFlippers"
