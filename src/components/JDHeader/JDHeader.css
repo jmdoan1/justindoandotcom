@@ -8,6 +8,7 @@
   
   .JDHeaderTable {
     width: 100%;
+    table-layout: fixed;
   }
   
   .JDHeaderName {

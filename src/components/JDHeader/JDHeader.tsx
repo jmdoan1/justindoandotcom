@@ -17,17 +17,17 @@ export default class JDHeader extends React.PureComponent<Props> {
             <header className="JDHeader">
                 <table cellSpacing={0} cellPadding={0} className="JDHeaderTable">
                     <tr>
-                        <td>
+                        <td colSpan={4}>
                             <p className="JDHeaderName">{this.props.name}</p>
                         </td>
-                        <td className="JDHeaderButtonSelected">
-                            <p>Projects</p>
+                        <td colSpan={1} className="JDHeaderButtonSelected">
+                            Projects
                         </td>
-                        <td className={getButtonClass("Tutorials")}>
-                            <p>Tutorials</p>
+                        <td colSpan={1} className={getButtonClass("Tutorials")}>
+                            Tutorials
                         </td>
-                        <td className="JDHeaderButtonHovered">
-                            <p>About</p>
+                        <td colSpan={1} className="JDHeaderButtonHovered">
+                            About
                         </td>
                     </tr>
                 </table>
