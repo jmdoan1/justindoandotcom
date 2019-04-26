@@ -1,6 +1,6 @@
 import * as React from 'react';
 import './App.css';
-import ProjectThumbnail from './components/ProjectThumbnail/ProjectThumbnail';
+import PageProjects from './components/PageProjects/PageProjects';
 import JDHeader from './components/JDHeader/JDHeader';
 
 class App extends React.Component {
@@ -11,24 +11,7 @@ class App extends React.Component {
           name="Justin Doan"
           pages={["Projects", "Tutorials", "About"]}
         />
-        <div>
-          <ProjectThumbnail
-            name="WatchFlippers"
-            tagline="An App"
-            personal={false}
-            client={true}
-            W2={false} 
-            logoString="wflogo.png"
-            logoBgColor="black"
-          />
-          <ProjectThumbnail
-            name="FameStream"
-            tagline="Another App"
-            personal={false}
-            client={false}
-            W2={false}
-          />
-        </div>
+        <PageProjects />
       </div>
     );
   }
