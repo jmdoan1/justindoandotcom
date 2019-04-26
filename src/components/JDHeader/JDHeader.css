@@ -25,11 +25,15 @@
   }
   
   .JDHeaderButton{
+    height: 50%;
     background-color:rgba(255, 255, 255, 0.5); 
     color: white;
     font-weight: bold;
-    margin: 0%;
-    padding: 0%;
+    margin-bottom: 0;
+    margin-left: 0%;
+    margin-right: 0%;
+    padding: 0;
+    align-self: flex-end;
   }
 
   .JDHeaderButtonHovered{
