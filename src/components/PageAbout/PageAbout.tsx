@@ -12,16 +12,16 @@ export default class PageAbout extends React.PureComponent<Props, State> {
     private timer: NodeJS.Timer;
 
     private fileNames = ([
-        'BlueUnderBridge.jpg', 
-        'BeachMouseRat.jpg', 
+        'BlueUnderBridge.jpg',
+        'BeachMouseRat.jpg',
         'Powells.jpg'
-    ].sort(function(a, b){return 0.5 - Math.random()})); //Randomizes the array
+    ].sort(function (a, b) { return 0.5 - Math.random() })); //Randomizes the array
 
     constructor(props: Props) {
         super(props);
 
         if (this.fileNames.length > 0) {
-            this.state = {displayedImageName: this.fileNames[0]};
+            this.state = { displayedImageName: this.fileNames[0] };
         }
         if (this.fileNames.length > 1) {
             this.timer = setInterval(() => this.cycleImages(), 3000);
@@ -36,7 +36,7 @@ export default class PageAbout extends React.PureComponent<Props, State> {
     private cycleImages() {
         const currentIndex = this.fileNames.indexOf(this.state.displayedImageName || '');
         console.log('Current Index: ' + currentIndex);
-        
+
         const newIndex = (((
             (currentIndex + 1) / this.fileNames.length
         ) -
@@ -46,7 +46,7 @@ export default class PageAbout extends React.PureComponent<Props, State> {
         );
         console.log('New Index: ' + newIndex);
 
-        this.setState({displayedImageName: this.fileNames[newIndex]});
+        this.setState({ displayedImageName: this.fileNames[newIndex] });
     }
 
     render() {
@@ -55,8 +55,3 @@ export default class PageAbout extends React.PureComponent<Props, State> {
         );
     }
 }
-
-// var req = require.context('../../assets/images/About', false, /.*\.jpg$/);
-// req.keys().forEach(function(key){
-//     req(key);
-// });

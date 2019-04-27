@@ -21,12 +21,12 @@ export default class ProjectThumbnail extends React.PureComponent<Props> {
         if (this.props.logoString) {
             const image = require('../../assets/images/' + this.props.logoString)
             logoDisplay = (
-                        <img 
-                            alt={this.props.logoString} 
-                            className="ThumbnailLogo"
-                            style={{ backgroundColor: this.props.logoBgColor || "" }} 
-                            src={String(image)}
-                        />)
+                <img
+                    alt={this.props.logoString}
+                    className="ThumbnailLogo"
+                    style={{ backgroundColor: this.props.logoBgColor || "" }}
+                    src={String(image)}
+                />)
         }
 
         let taglineDisplay = null

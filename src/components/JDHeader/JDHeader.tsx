@@ -13,7 +13,7 @@ export default class JDHeader extends React.PureComponent<Props> {
             return "JDHeaderButton"
         }
 
-        return(
+        return (
             <header className="JDHeader">
                 <table cellSpacing={0} cellPadding={0} className="JDHeaderTable">
                     <tr>

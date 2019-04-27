@@ -8,7 +8,7 @@ class App extends React.Component {
   public render() {
     return (
       <div className="App">
-        <JDHeader 
+        <JDHeader
           name="Justin Doan"
           pages={["Projects", "Tutorials", "About"]}
         />
