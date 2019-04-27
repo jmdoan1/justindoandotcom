@@ -4,29 +4,54 @@ export interface Props {
     name?: string;
 }
 
-export default class PageAbout extends React.PureComponent<Props> {
+export interface State {
+    displayedImageName: string;
+}
+
+export default class PageAbout extends React.PureComponent<Props, State> {
+    private timer: NodeJS.Timer;
+
     private fileNames = ([
         'BlueUnderBridge.jpg', 
         'BeachMouseRat.jpg', 
         'Powells.jpg'
     ].sort(function(a, b){return 0.5 - Math.random()})); //Randomizes the array
 
-    render() {
-        var images: JSX.Element[] = []
+    constructor(props: Props) {
+        super(props);
 
-        for (const imgName of this.fileNames) {
-            images.push(
-                <img 
-                    src={require('../../assets/images/About/' + imgName)} 
-                    key={imgName}
-                />
-            );
+        if (this.fileNames.length > 0) {
+            this.state = {displayedImageName: this.fileNames[0]};
         }
+        if (this.fileNames.length > 1) {
+            this.timer = setInterval(() => this.cycleImages(), 3000);
+            console.log(this.timer);
+        }
+    }
 
+    // componentWillUnmount() {
+    //     this.timer = clearInterval() => this.cycleImages());
+    // }
+
+    private cycleImages() {
+        const currentIndex = this.fileNames.indexOf(this.state.displayedImageName || '');
+        console.log('Current Index: ' + currentIndex);
+        
+        const newIndex = (((
+            (currentIndex + 1) / this.fileNames.length
+        ) -
+            Math.floor((currentIndex + 1) / this.fileNames.length)
+        ) *
+            this.fileNames.length
+        );
+        console.log('New Index: ' + newIndex);
+
+        this.setState({displayedImageName: this.fileNames[newIndex]});
+    }
+
+    render() {
         return (
-            <div>
-                {images}
-            </div>
+            <img src={require('../../assets/images/About/' + this.state.displayedImageName)} />
         );
     }
 }
