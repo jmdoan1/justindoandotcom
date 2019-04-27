@@ -2,7 +2,7 @@ import * as React from 'react';
 import ProjectThumbnail from  '../ProjectThumbnail/ProjectThumbnail';
 
 export interface Props {
-    name?: string;
+    placeholderprop?: string; 
 }
 
 export default class PageProjects extends React.PureComponent<Props> {

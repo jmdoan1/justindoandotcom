@@ -2,6 +2,7 @@ import * as React from 'react';
 import './App.css';
 import PageProjects from './components/PageProjects/PageProjects';
 import JDHeader from './components/JDHeader/JDHeader';
+import PageAbout from './components/PageAbout/PageAbout';
 
 class App extends React.Component {
   public render() {
@@ -12,6 +13,7 @@ class App extends React.Component {
           pages={["Projects", "Tutorials", "About"]}
         />
         <PageProjects />
+        <PageAbout />
       </div>
     );
   }
