@@ -1,12 +1,19 @@
+.AboutPage{
+    /* margin: 1%; */
+    padding: 1%
+}
+
 .AboutImage{
     float: left;
-    width: 35%;
-    height: 50%;
+    width: 30vw;
+    height: 80vh;
     margin-right: 1%;
     margin-bottom: 1%;
-    border-top-right-radius: 10%;
-    border-bottom-right-radius: 10%;
-    border-bottom-left-radius: 10%;
+    border-top-left-radius: 5%;
+    border-top-right-radius: 5%;
+    border-bottom-right-radius: 5%;
+    border-bottom-left-radius: 5%;
+    object-fit: cover;
 }
 
 .AboutText{
