@@ -1,0 +1,14 @@
+.AboutImage{
+    float: left;
+    width: 35%;
+    height: 50%;
+    margin-right: 1%;
+    margin-bottom: 1%;
+    border-top-right-radius: 10%;
+    border-bottom-right-radius: 10%;
+    border-bottom-left-radius: 10%;
+}
+
+.AboutText{
+    text-align: left;
+}
