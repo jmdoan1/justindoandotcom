@@ -41,15 +41,11 @@ export default class PageAbout extends React.PureComponent<Props, State> {
     }
 
     private cycleImages() {
-        const currentIndex = this.fileNames.indexOf(this.state.displayedImageName || '');
-        console.log('currentIndex: ' + currentIndex);
-
-        // finds the remainder
-        // const newIndex = ((((currentIndex + 1) / this.fileNames.length) - Math.floor((currentIndex + 1) / this.fileNames.length)) * this.fileNames.length);
-        const newIndex = Shortcuts.loopIndex(currentIndex, this.fileNames.length);
-        console.log('newIndex: ' + newIndex);
-
-        this.setState({ displayedImageName: this.fileNames[newIndex] });
+        const currentIndex = this.fileNames.indexOf(this.state.displayedImageName || ''); 
+        if (currentIndex >= 0) {
+            const newIndex = Shortcuts.loopIndex(currentIndex, this.fileNames.length);
+            this.setState({ displayedImageName: this.fileNames[newIndex] });
+        }
     }
 
     render() {
@@ -66,7 +62,12 @@ export default class PageAbout extends React.PureComponent<Props, State> {
                     <h2>Formal Education:</h2>
                     University of North Florida: BBA Accounting, 2012 <br/><br/>
                     <h2>Favorite Color:</h2>
-                    I'm color blind and that question was rude af. <br/><br/>
+                    I'm color blind and that question was rude af. 
+                    <br/><br/>
+                    <pre><code>
+                        let f = 'this is a code sample example';
+                    </code></pre>
+                    <br/><br/>
                     I am a developer! Ok but what kind? Idk man just figure it out yourself please. I am a developer! Ok but what kind? Idk man just figure it out yourself please. I am a developer! Ok but what kind? Idk man just figure it out yourself please. I am a developer! Ok but what kind? Idk man just figure it out yourself please. I am a developer! Ok but what kind? Idk man just figure it out yourself please. I am a developer! Ok but what kind? Idk man just figure it out yourself please. I am a developer! Ok but what kind? Idk man just figure it out yourself please. I am a developer! Ok but what kind? Idk man just figure it out yourself please. I am a developer! Ok but what kind? Idk man just figure it out yourself please. 
 
                     
@@ -84,7 +85,6 @@ export default class PageAbout extends React.PureComponent<Props, State> {
                     
                     <h1>Who am I?</h1>
                     I am a developer! Ok but what kind? Idk man just figure it out yourself please. I am a developer! Ok but what kind? Idk man just figure it out yourself please. I am a developer! Ok but what kind? Idk man just figure it out yourself please. I am a developer! Ok but what kind? Idk man just figure it out yourself please. I am a developer! Ok but what kind? Idk man just figure it out yourself please. I am a developer! Ok but what kind? Idk man just figure it out yourself please. I am a developer! Ok but what kind? Idk man just figure it out yourself please. I am a developer! Ok but what kind? Idk man just figure it out yourself please. I am a developer! Ok but what kind? Idk man just figure it out yourself please. 
-
                     
                 </div>
             </div>

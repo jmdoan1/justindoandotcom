@@ -4,16 +4,17 @@ export function randomize(arr: any[]) {
 
 /**
  * Returns the remainder of x over y 
- * @param x The number being divided
+ * @param x The dividend
  * @param overY The divisor
  */
 export function remainder(x: number, overY: number): number {
     //eg 4 / 6
     return (
-        (
-            (x / overY) - // 1.666666
-            Math.floor(x / overY) // - 1 = 0.6666
-        ) * overY // * 6 = 2
+        Math.round(
+            (
+                (x / overY) - // 1.666666
+                Math.floor(x / overY) // - 1 = 0.6666
+            ) * overY) // * 6 = 2
     );
 }
 
