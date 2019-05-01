@@ -23,6 +23,9 @@ export function remainder(x: number, overY: number): number {
  * @param currentIndex The index of the current item
  * @param arrayLength The length of the array you are looping through
  */
-export function loopIndex(currentIndex: number, arrayLength: number): number {
-    return remainder(currentIndex + 1, arrayLength);
+export function loopIndex(currentIndex: number, arrayLength: number): number | undefined {
+    if (currentIndex >= 0 && arrayLength > 0) {
+        return remainder(currentIndex + 1, arrayLength)
+    }
+    return undefined;
 }

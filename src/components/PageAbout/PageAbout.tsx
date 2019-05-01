@@ -11,7 +11,7 @@ export interface State {
 }
 
 export default class PageAbout extends React.PureComponent<Props, State> {
-    private timer: NodeJS.Timer;
+    private timer: NodeJS.Timer | undefined;
 
     private fileNames = Shortcuts.randomize([
         'BlueUnderBridge.jpg',
@@ -37,13 +37,16 @@ export default class PageAbout extends React.PureComponent<Props, State> {
     }
 
     componentWillUnmount() {
-        clearInterval(this.timer);
+        if (this.timer) {
+            clearInterval(this.timer);
+        }
     }
 
     private cycleImages() {
         const currentIndex = this.fileNames.indexOf(this.state.displayedImageName || ''); 
-        if (currentIndex >= 0) {
-            const newIndex = Shortcuts.loopIndex(currentIndex, this.fileNames.length);
+        const newIndex = Shortcuts.loopIndex(currentIndex, this.fileNames.length);
+
+        if (newIndex) {
             this.setState({ displayedImageName: this.fileNames[newIndex] });
         }
     }
