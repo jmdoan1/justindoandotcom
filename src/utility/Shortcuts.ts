@@ -29,3 +29,8 @@ export function loopIndex(currentIndex: number, arrayLength: number): number | u
     }
     return undefined;
 }
+
+export function ageFromMilliseconds(milliseconds: number): String {
+    const years = Math.floor(milliseconds / (24*60*60*365*1000))
+    return(years + ' years');
+}

@@ -13,6 +13,9 @@ export interface State {
 export default class PageAbout extends React.PureComponent<Props, State> {
     private timer: NodeJS.Timer | undefined;
 
+    private dateString = 'March 8, 1990 05:21:00 AM EST';
+    private dob = new Date(this.dateString);
+
     private fileNames = Shortcuts.randomize([
         'BlueUnderBridge.jpg',
         'BeachMouseRat.jpg',
@@ -49,6 +52,13 @@ export default class PageAbout extends React.PureComponent<Props, State> {
         if (newIndex) {
             this.setState({ displayedImageName: this.fileNames[newIndex] });
         }
+
+        const newDate = new Date();
+        console.log('og date: ' + this.dob);
+        console.log('new date: ' + newDate);
+
+        const diff = Date.parse(newDate.toISOString()) - Date.parse(this.dob.toISOString());
+        console.log('diff: ' + Shortcuts.ageFromMilliseconds(diff));
     }
 
     render() {
