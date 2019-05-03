@@ -58,7 +58,8 @@ export default class PageAbout extends React.PureComponent<Props, State> {
         console.log('new date: ' + newDate);
 
         const diff = Date.parse(newDate.toISOString()) - Date.parse(this.dob.toISOString());
-        console.log('diff: ' + Shortcuts.ageFromMilliseconds(diff));
+        console.log('ageFromMilliseconds: ' + Shortcuts.ageFromMilliseconds(diff));
+        console.log('dateDiff: ' + Shortcuts.dateDiff(this.dob, newDate));
     }
 
     render() {

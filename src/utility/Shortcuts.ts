@@ -34,3 +34,21 @@ export function ageFromMilliseconds(milliseconds: number): String {
     const years = Math.floor(milliseconds / (24*60*60*365*1000))
     return(years + ' years');
 }
+
+export function dateDiff(date1: Date, date2: Date) {
+    var firstDate: Date;
+    var secondDate: Date;
+
+    if (date1 <= date2) {
+        firstDate = date1;
+        secondDate = date2;
+    } else {
+        firstDate = date2;
+        secondDate = date1;
+    }
+
+    let firstYear = firstDate.getUTCFullYear();
+    let secondYear = secondDate.getUTCFullYear();
+
+    return(secondYear - firstYear + ' Years');
+}
