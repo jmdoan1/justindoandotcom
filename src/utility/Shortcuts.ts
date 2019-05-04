@@ -31,8 +31,8 @@ export function loopIndex(currentIndex: number, arrayLength: number): number | u
 }
 
 export function ageFromMilliseconds(milliseconds: number): String {
-    const years = Math.floor(milliseconds / (24*60*60*365*1000))
-    return(years + ' years');
+    const years = Math.floor(milliseconds / (24 * 60 * 60 * 365 * 1000))
+    return (years + ' years');
 }
 
 export function dateDiff(date1: Date, date2: Date) {
@@ -47,8 +47,77 @@ export function dateDiff(date1: Date, date2: Date) {
         secondDate = date1;
     }
 
-    let firstYear = firstDate.getUTCFullYear();
-    let secondYear = secondDate.getUTCFullYear();
+    const firstYear = firstDate.getUTCFullYear();
+    const secondYear = secondDate.getUTCFullYear();
 
-    return(secondYear - firstYear + ' Years');
+    var diffYearsTotal = secondYear - firstYear;
+
+    const firstMonth = firstDate.getUTCMonth();
+    const secondMonth = secondDate.getUTCMonth();
+
+    if (secondMonth < firstMonth && diffYearsTotal > 0) { diffYearsTotal = diffYearsTotal - 1 };
+
+    var diffMonthsAfterYears = secondMonth >= firstMonth ? secondMonth - firstMonth : 12 - (firstMonth - secondMonth);
+    const diffMonthsTotal = diffMonthsAfterYears + (diffYearsTotal * 12);
+
+    const firstDay = firstDate.getUTCDate();
+    const secondDay = secondDate.getUTCDate();
+
+    if (secondDay < firstDay) {
+        diffMonthsAfterYears = diffMonthsAfterYears > 0 ? diffMonthsAfterYears - 1 : 11;
+    };
+
+    console.log(daysInMonth(secondMonth) + ' ' + diffMonthsTotal);
+
+    return (diffYearsTotal + ' Years, ' + diffMonthsAfterYears + ' months');
+}
+
+function isLeapYear(year: number): boolean {
+    // https://www.mathsisfun.com/leap-years.html
+    return ((remainder(year, 4) === 0 && remainder(year, 100) !== 0) || remainder(year, 400) === 0);
+}
+
+function daysInMonth(month: number | string, ofYear?: number): number | undefined {
+    switch (month.toString().toLowerCase().trim()) {
+        case '1' || 'january': {
+            return 31;
+        }
+        case '2' || 'february': {
+            if (ofYear) { return isLeapYear(ofYear) ? 29 : 28; }
+            return 28;
+        }
+        case '3' || 'march': {
+            return 31;
+        }
+        case '4' || 'april': {
+            return 30;
+        }
+        case '5' || 'may': {
+            return 31;
+        }
+        case '6' || 'june': {
+            return 30;
+        }
+        case '7' || 'july': {
+            return 31;
+        }
+        case '8' || 'august': {
+            return 31;
+        }
+        case '9' || 'september': {
+            return 30;
+        }
+        case '10' || 'october': {
+            return 31;
+        }
+        case '11' || 'november': {
+            return 30;
+        }
+        case '12' || 'december': {
+            return 31;
+        }
+        default: {
+            return undefined;
+        }
+    }
 }
