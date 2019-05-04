@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Gist from 'react-gist';
 import * as Shortcuts from '../../utility/Shortcuts';
 import './PageAbout.css'
 
@@ -81,6 +82,8 @@ export default class PageAbout extends React.PureComponent<Props, State> {
                     <pre><code>
                         let f = 'this is a code sample example';
                     </code></pre>
+                    <br/><br/>
+                    <Gist id='fbb9101764db0ba9fd4987425f427efb' />
                     <br/><br/>
                     I am a developer! Ok but what kind? Idk man just figure it out yourself please. I am a developer! Ok but what kind? Idk man just figure it out yourself please. I am a developer! Ok but what kind? Idk man just figure it out yourself please. I am a developer! Ok but what kind? Idk man just figure it out yourself please. I am a developer! Ok but what kind? Idk man just figure it out yourself please. I am a developer! Ok but what kind? Idk man just figure it out yourself please. I am a developer! Ok but what kind? Idk man just figure it out yourself please. I am a developer! Ok but what kind? Idk man just figure it out yourself please. I am a developer! Ok but what kind? Idk man just figure it out yourself please. 
 
