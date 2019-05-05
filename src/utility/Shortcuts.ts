@@ -133,9 +133,9 @@ export function isLeapYear(year: number): boolean {
 }
 
 /**
- * Returns
- * @param month 
- * @param ofYear 
+ * Returns the number days in the month.
+ * @param month Numbers 1-12 OR full month name string e.g. 'january' (not case specific)
+ * @param ofYear Optional parameter to factor in leap years for February
  */
 export function daysInMonth(month: number | string, ofYear?: number): number | undefined {
     switch (month.toString().toLowerCase().trim()) {
