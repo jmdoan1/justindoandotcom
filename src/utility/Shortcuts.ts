@@ -8,13 +8,13 @@ export function randomize(arr: any[]) {
  * @param overY The divisor
  */
 export function remainder(x: number, overY: number): number {
-    //eg 4 / 6
+    // eg 6 / 4
     return (
         Math.round(
             (
-                (x / overY) - // 1.666666
-                Math.floor(x / overY) // - 1 = 0.6666
-            ) * overY) // * 6 = 2
+                (x / overY) - // 1.5
+                Math.floor(x / overY) // - 1 = 0.5
+            ) * overY) // * 4 = 2
     );
 }
 
@@ -30,11 +30,11 @@ export function loopIndex(currentIndex: number, arrayLength: number): number | u
     return undefined;
 }
 
-export function ageFromMilliseconds(milliseconds: number): String {
-    const years = Math.floor(milliseconds / (24 * 60 * 60 * 365 * 1000))
-    return (years + ' years');
-}
-
+/**
+ * Returns the difference between two dats (currently as a string like 'x years, x months, 'etc...)
+ * @param date1 Any date
+ * @param date2 Any other date
+ */
 export function dateDiff(date1: Date, date2: Date) {
     var firstDate: Date;
     var secondDate: Date;
@@ -123,12 +123,21 @@ export function dateDiff(date1: Date, date2: Date) {
     );
 }
 
-function isLeapYear(year: number): boolean {
+/**
+ * Returns a boolean value for whether the provided year is a leap year
+ * @param year The year you are checking
+ */
+export function isLeapYear(year: number): boolean {
     // https://www.mathsisfun.com/leap-years.html
     return ((remainder(year, 4) === 0 && remainder(year, 100) !== 0) || remainder(year, 400) === 0);
 }
 
-function daysInMonth(month: number | string, ofYear?: number): number | undefined {
+/**
+ * Returns
+ * @param month 
+ * @param ofYear 
+ */
+export function daysInMonth(month: number | string, ofYear?: number): number | undefined {
     switch (month.toString().toLowerCase().trim()) {
         case '1': case 'january': {
             return 31;
