@@ -25,7 +25,7 @@ export function remainder(x: number, overY: number): number {
  */
 export function loopIndex(currentIndex: number, arrayLength: number): number | undefined {
     if (currentIndex >= 0 && arrayLength > 0) {
-        return remainder(currentIndex + 1, arrayLength)
+        return remainder(currentIndex + 1, arrayLength);
     }
     return undefined;
 }
@@ -59,7 +59,7 @@ export function dateDiff(date1: Date, date2: Date) {
     if (secondMonth < firstMonth && diffYearsTotal > 0) { diffYearsTotal = diffYearsTotal - 1 };
 
     var diffMonthsAfterYears = secondMonth >= firstMonth ? secondMonth - firstMonth : 12 - (firstMonth - secondMonth);
-    const diffMonthsTotal = diffMonthsAfterYears + (diffYearsTotal * 12);
+    // const diffMonthsTotal = diffMonthsAfterYears + (diffYearsTotal * 12); // maybe later, when this is a class
 
     const firstDay = firstDate.getUTCDate();
     const secondDay = secondDate.getUTCDate();
@@ -73,8 +73,6 @@ export function dateDiff(date1: Date, date2: Date) {
     } else {
         diffDaysAfterMonth = secondDay - firstDay;
     }
-
-    console.log(daysInMonth(secondMonth) + ' ' + diffMonthsTotal);
 
     const firstHour = firstDate.getUTCHours();
     const secondHour = secondDate.getUTCHours();
@@ -115,12 +113,14 @@ export function dateDiff(date1: Date, date2: Date) {
         diffSecondsAfterMinute = secondSecond - firstSecond;
     }
 
-    return (diffYearsTotal + ' Years, ' +
-        diffMonthsAfterYears + ' months, ' +
-        diffDaysAfterMonth + ' days, ' +
-        diffHoursAfterDay + ' hours, ' +
-        diffMinutesAfterHour + ' minutes, ' +
-        diffSecondsAfterMinute + ' seconds');
+    return (
+        diffYearsTotal + (diffYearsTotal === 1 ? ' year, ' : ' years, ') +
+        diffMonthsAfterYears + (diffMonthsAfterYears === 1 ? ' month, ' : ' months, ') +
+        diffDaysAfterMonth + (diffDaysAfterMonth === 1 ? ' day, ' : ' days, ') +
+        diffHoursAfterDay + (diffHoursAfterDay === 1 ? ' hour, ' : ' hours, ') +
+        diffMinutesAfterHour + (diffMinutesAfterHour === 1 ? ' minute, ' : ' minutes, ') +
+        diffSecondsAfterMinute + (diffSecondsAfterMinute === 1 ? ' second' : ' seconds')
+    );
 }
 
 function isLeapYear(year: number): boolean {
