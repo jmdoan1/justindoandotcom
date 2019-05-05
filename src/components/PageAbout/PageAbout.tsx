@@ -9,13 +9,15 @@ export interface Props {
 
 export interface State {
     displayedImageName: string;
+    // ageString: string;
 }
 
 export default class PageAbout extends React.PureComponent<Props, State> {
-    private timer: NodeJS.Timer | undefined;
+    private imageTimer: NodeJS.Timer | undefined;
+    // private ageTimer: NodeJS.Timer | undefined;
 
-    private dateString = 'March 8, 1990 05:21:00 AM EST';
-    private dob = new Date(this.dateString);
+    private ageString = 'March 8, 1990 05:21:00 AM EST';
+    private dob = new Date(this.ageString);
 
     private fileNames = Shortcuts.randomize([
         'BlueUnderBridge.jpg',
@@ -35,14 +37,13 @@ export default class PageAbout extends React.PureComponent<Props, State> {
         }
 
         if (this.fileNames.length > 1) {
-            this.timer = setInterval(() => this.cycleImages(), 3000);
-            console.log(this.timer);
+            this.imageTimer = setInterval(() => this.cycleImages(), 3000);
         }
     }
 
     componentWillUnmount() {
-        if (this.timer) {
-            clearInterval(this.timer);
+        if (this.imageTimer) {
+            clearInterval(this.imageTimer);
         }
     }
 
@@ -55,11 +56,7 @@ export default class PageAbout extends React.PureComponent<Props, State> {
         }
 
         const newDate = new Date();
-        console.log('og date: ' + this.dob);
-        console.log('new date: ' + newDate);
-
-        const diff = Date.parse(newDate.toISOString()) - Date.parse(this.dob.toISOString());
-        console.log('ageFromMilliseconds: ' + Shortcuts.ageFromMilliseconds(diff));
+        
         console.log('dateDiff: ' + Shortcuts.dateDiff(this.dob, newDate));
     }
 

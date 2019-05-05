@@ -52,8 +52,9 @@ export function dateDiff(date1: Date, date2: Date) {
 
     var diffYearsTotal = secondYear - firstYear;
 
-    const firstMonth = firstDate.getUTCMonth();
-    const secondMonth = secondDate.getUTCMonth();
+    // apparently 0 indexed, adding + 1 to better align with how my brain is treating these numbers in the logic
+    const firstMonth = firstDate.getUTCMonth() + 1;
+    const secondMonth = secondDate.getUTCMonth() + 1;
 
     if (secondMonth < firstMonth && diffYearsTotal > 0) { diffYearsTotal = diffYearsTotal - 1 };
 
@@ -63,13 +64,63 @@ export function dateDiff(date1: Date, date2: Date) {
     const firstDay = firstDate.getUTCDate();
     const secondDay = secondDate.getUTCDate();
 
+    var diffDaysAfterMonth: number;
+
     if (secondDay < firstDay) {
         diffMonthsAfterYears = diffMonthsAfterYears > 0 ? diffMonthsAfterYears - 1 : 11;
-    };
+
+        diffDaysAfterMonth = (daysInMonth(secondMonth > 0 ? (secondMonth - 1) : 12) || 30) - (firstDay - secondDay);
+    } else {
+        diffDaysAfterMonth = secondDay - firstDay;
+    }
 
     console.log(daysInMonth(secondMonth) + ' ' + diffMonthsTotal);
 
-    return (diffYearsTotal + ' Years, ' + diffMonthsAfterYears + ' months');
+    const firstHour = firstDate.getUTCHours();
+    const secondHour = secondDate.getUTCHours();
+
+    var diffHoursAfterDay: number;
+
+    if (secondHour < firstHour) {
+        diffDaysAfterMonth = diffDaysAfterMonth - 1
+
+        diffHoursAfterDay = 24 - (firstHour - secondHour);
+    } else {
+        diffHoursAfterDay = secondHour - firstHour;
+    }
+
+    const firstMinute = firstDate.getUTCMinutes();
+    const secondMinute = secondDate.getUTCMinutes();
+
+    var diffMinutesAfterHour: number;
+
+    if (secondMinute < firstMinute) {
+        diffHoursAfterDay = diffHoursAfterDay - 1
+
+        diffMinutesAfterHour = 60 - (firstMinute - secondMinute);
+    } else {
+        diffMinutesAfterHour = secondMinute - firstMinute;
+    }
+
+    const firstSecond = firstDate.getUTCSeconds();
+    const secondSecond = secondDate.getUTCSeconds();
+
+    var diffSecondsAfterMinute: number;
+
+    if (secondSecond < firstSecond) {
+        diffMinutesAfterHour = diffMinutesAfterHour - 1
+
+        diffSecondsAfterMinute = 60 - (firstSecond - secondSecond);
+    } else {
+        diffSecondsAfterMinute = secondSecond - firstSecond;
+    }
+
+    return (diffYearsTotal + ' Years, ' +
+        diffMonthsAfterYears + ' months, ' +
+        diffDaysAfterMonth + ' days, ' +
+        diffHoursAfterDay + ' hours, ' +
+        diffMinutesAfterHour + ' minutes, ' +
+        diffSecondsAfterMinute + ' seconds');
 }
 
 function isLeapYear(year: number): boolean {
@@ -79,41 +130,41 @@ function isLeapYear(year: number): boolean {
 
 function daysInMonth(month: number | string, ofYear?: number): number | undefined {
     switch (month.toString().toLowerCase().trim()) {
-        case '1' || 'january': {
+        case '1': case 'january': {
             return 31;
         }
-        case '2' || 'february': {
+        case '2': case 'february': {
             if (ofYear) { return isLeapYear(ofYear) ? 29 : 28; }
             return 28;
         }
-        case '3' || 'march': {
+        case '3': case 'march': {
             return 31;
         }
-        case '4' || 'april': {
+        case '4': case 'april': {
             return 30;
         }
-        case '5' || 'may': {
+        case '5': case 'may': {
             return 31;
         }
-        case '6' || 'june': {
+        case '6': case 'june': {
             return 30;
         }
-        case '7' || 'july': {
+        case '7': case 'july': {
             return 31;
         }
-        case '8' || 'august': {
+        case '8': case 'august': {
             return 31;
         }
-        case '9' || 'september': {
+        case '9': case 'september': {
             return 30;
         }
-        case '10' || 'october': {
+        case '10': case 'october': {
             return 31;
         }
-        case '11' || 'november': {
+        case '11': case 'november': {
             return 30;
         }
-        case '12' || 'december': {
+        case '12': case 'december': {
             return 31;
         }
         default: {
