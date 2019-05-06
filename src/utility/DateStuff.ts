@@ -65,11 +65,18 @@ export class DateDiff {
             this.secondMonth - this.firstMonth :
             12 - (this.firstMonth - this.secondMonth);
 
-        if (this.secondDay < this.firstDay) {
+        if (this.monthsNeedRollBack()) {
             months = months > 0 ? months - 1 : 11;
         }
 
         return months;
+    }
+
+    private monthsNeedRollBack(): boolean {
+        return (
+            (this.secondDay < this.firstDay) ||
+            (this.secondDay === this.firstDay && this.daysNeedRollBack())
+        );
     }
 
     diffMonthsTotal(): number {
@@ -92,11 +99,20 @@ export class DateDiff {
             days = daysInSecondMonth - (this.firstDay - this.secondDay);
         }
 
-        if (this.secondHour < this.firstHour) {
+        if (this.daysNeedRollBack()) {
             days = (days > 1) ? days - 1 : (daysInSecondMonth - 1);
         }
 
         return days;
+    }
+    
+    private daysNeedRollBack(): boolean {
+        return (
+            (this.secondHour < this.firstHour) ||
+            (this.secondHour === this.firstHour && this.secondMinute < this.firstMinute) ||
+            (this.secondHour === this.firstHour && this.secondMinute === this.firstMinute && this.secondSecond < this.firstSecond) ||
+            (this.secondHour === this.firstHour && this.secondMinute === this.firstMinute && this.secondSecond === this.firstSecond && this.secondMillisecond < this.firstMillisecond)
+        );
     }
 
     diffDaysTotal(): number {
@@ -135,7 +151,7 @@ export class DateDiff {
         var seconds = (this.secondSecond < this.firstSecond) ?
             60 - (this.firstSecond - this.secondSecond) :
             this.secondSecond - this.firstSecond;
-        
+
         if (this.secondMillisecond < this.firstMillisecond) { seconds = seconds - 1; }
 
         return seconds;
