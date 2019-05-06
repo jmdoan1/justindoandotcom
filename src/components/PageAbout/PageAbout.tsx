@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Gist from 'react-gist';
 import * as Shortcuts from '../../utility/Shortcuts';
+import { DateDiff } from '../../utility/DateStuff';
 import './PageAbout.css'
 
 export interface Props {
@@ -55,7 +56,7 @@ export default class PageAbout extends React.PureComponent<Props, State> {
     }
 
     private cycleAgeLabel() {
-        this.setState({ ageString: Shortcuts.dateDiff(this.dob, new Date()) })
+        this.setState({ ageString: new DateDiff(this.dob, new Date()).totalTimeString() });
     }
 
     private cycleImages() {

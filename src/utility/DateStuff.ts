@@ -1,6 +1,5 @@
 import { remainder } from './Shortcuts';
 
-
 export class DateDiff {
     firstDate: Date;
     secondDate: Date;
@@ -53,11 +52,18 @@ export class DateDiff {
     public diffYears(): number {
         var years = this.secondYear - this.firstYear;
 
-        if (this.secondMonth < this.firstMinute && years > 1) {
+        if (this.yearsNeedRollBack() && years > 0) {
             years = years - 1;
         }
 
         return years;
+    }
+
+    private yearsNeedRollBack(): boolean {
+        return (
+            (this.secondMonth < this.firstMonth) ||
+            (this.secondMonth === this.firstMonth && this.monthsNeedRollBack())
+        );
     }
 
     diffMonthsAfterYears(): number {
@@ -109,9 +115,7 @@ export class DateDiff {
     private daysNeedRollBack(): boolean {
         return (
             (this.secondHour < this.firstHour) ||
-            (this.secondHour === this.firstHour && this.secondMinute < this.firstMinute) ||
-            (this.secondHour === this.firstHour && this.secondMinute === this.firstMinute && this.secondSecond < this.firstSecond) ||
-            (this.secondHour === this.firstHour && this.secondMinute === this.firstMinute && this.secondSecond === this.firstSecond && this.secondMillisecond < this.firstMillisecond)
+            (this.secondHour === this.firstHour && this.hoursNeedRollBack())
         );
     }
 
@@ -124,9 +128,16 @@ export class DateDiff {
             24 - (this.firstHour - this.secondHour) :
             this.secondHour - this.firstHour;
 
-        if (this.secondMinute < this.firstMinute) { hours = hours - 1; }
+        if (this.hoursNeedRollBack()) { hours = (hours > 0) ? hours - 1 : 23; }
 
         return hours;
+    }
+    
+    private hoursNeedRollBack(): boolean {
+        return (
+            (this.secondMinute < this.firstMinute) ||
+            (this.secondMinute === this.firstMinute && this.minutesNeedRollBack())
+        );
     }
 
     diffHoursTotal(): number {
@@ -138,9 +149,16 @@ export class DateDiff {
             60 - (this.firstMinute - this.secondMinute) :
             this.secondMinute - this.firstMinute;
 
-        if (this.secondSecond < this.firstSecond) { minutes = minutes - 1; }
+        if (this.minutesNeedRollBack()) { minutes = minutes - 1; }
 
         return minutes;
+    }
+    
+    private minutesNeedRollBack(): boolean {
+        return (
+            (this.secondSecond < this.firstSecond) ||
+            (this.secondSecond === this.firstSecond && this.secondsNeedRollBack())
+        );
     }
 
     diffMinutesTotal(): number {
@@ -152,9 +170,15 @@ export class DateDiff {
             60 - (this.firstSecond - this.secondSecond) :
             this.secondSecond - this.firstSecond;
 
-        if (this.secondMillisecond < this.firstMillisecond) { seconds = seconds - 1; }
+        if (this.secondsNeedRollBack()) { seconds = seconds - 1; }
 
         return seconds;
+    }
+
+    private secondsNeedRollBack(): boolean {
+        return (
+            (this.secondMillisecond < this.firstMillisecond)
+        );
     }
 
     diffMillisecondsAfterSeconds(): number {
@@ -199,7 +223,7 @@ export function daysInMonth(month: number | string, ofYear?: number): number | u
             return 31;
         }
         case '2': case 'february': {
-            if (ofYear) { return isLeapYear(ofYear) ? 29 : 28; }
+            if (ofYear !== undefined) { return isLeapYear(ofYear) ? 29 : 28; }
             return 28;
         }
         case '3': case 'march': {
