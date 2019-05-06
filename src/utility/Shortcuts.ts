@@ -1,3 +1,5 @@
+import { daysInMonth } from './DateStuff';
+
 export function randomize(arr: any[]) {
     return arr.sort(function (a, b) { return 0.5 - Math.random() });
 }
@@ -49,20 +51,24 @@ export function dateDiff(date1: Date, date2: Date) {
 
     const firstYear = firstDate.getUTCFullYear();
     const secondYear = secondDate.getUTCFullYear();
-
-    var diffYearsTotal = secondYear - firstYear;
-
-    // apparently 0 indexed, adding + 1 to better align with how my brain is treating these numbers in the logic
+    // months apparently 0 indexed, adding + 1 to better align with how my brain is treating these numbers in the logic
     const firstMonth = firstDate.getUTCMonth() + 1;
     const secondMonth = secondDate.getUTCMonth() + 1;
 
+    const firstDay = firstDate.getUTCDate();
+    const secondDay = secondDate.getUTCDate();
+
+    const firstHour = firstDate.getUTCHours();
+    const secondHour = secondDate.getUTCHours();
+
+    const firstMinute = firstDate.getUTCMinutes();
+    const secondMinute = secondDate.getUTCMinutes();
+
+    var diffYearsTotal = secondYear - firstYear;
     if (secondMonth < firstMonth && diffYearsTotal > 0) { diffYearsTotal = diffYearsTotal - 1 };
 
     var diffMonthsAfterYears = secondMonth >= firstMonth ? secondMonth - firstMonth : 12 - (firstMonth - secondMonth);
     // const diffMonthsTotal = diffMonthsAfterYears + (diffYearsTotal * 12); // maybe later, when this is a class
-
-    const firstDay = firstDate.getUTCDate();
-    const secondDay = secondDate.getUTCDate();
 
     var diffDaysAfterMonth: number;
 
@@ -74,9 +80,6 @@ export function dateDiff(date1: Date, date2: Date) {
         diffDaysAfterMonth = secondDay - firstDay;
     }
 
-    const firstHour = firstDate.getUTCHours();
-    const secondHour = secondDate.getUTCHours();
-
     var diffHoursAfterDay: number;
 
     if (secondHour < firstHour) {
@@ -86,9 +89,6 @@ export function dateDiff(date1: Date, date2: Date) {
     } else {
         diffHoursAfterDay = secondHour - firstHour;
     }
-
-    const firstMinute = firstDate.getUTCMinutes();
-    const secondMinute = secondDate.getUTCMinutes();
 
     var diffMinutesAfterHour: number;
 
@@ -123,61 +123,3 @@ export function dateDiff(date1: Date, date2: Date) {
     );
 }
 
-/**
- * Returns a boolean value for whether the provided year is a leap year
- * @param year The year you are checking
- */
-export function isLeapYear(year: number): boolean {
-    // https://www.mathsisfun.com/leap-years.html
-    return ((remainder(year, 4) === 0 && remainder(year, 100) !== 0) || remainder(year, 400) === 0);
-}
-
-/**
- * Returns the number days in the month.
- * @param month Numbers 1-12 OR full month name string e.g. 'january' (not case specific)
- * @param ofYear Optional parameter to factor in leap years for February
- */
-export function daysInMonth(month: number | string, ofYear?: number): number | undefined {
-    switch (month.toString().toLowerCase().trim()) {
-        case '1': case 'january': {
-            return 31;
-        }
-        case '2': case 'february': {
-            if (ofYear) { return isLeapYear(ofYear) ? 29 : 28; }
-            return 28;
-        }
-        case '3': case 'march': {
-            return 31;
-        }
-        case '4': case 'april': {
-            return 30;
-        }
-        case '5': case 'may': {
-            return 31;
-        }
-        case '6': case 'june': {
-            return 30;
-        }
-        case '7': case 'july': {
-            return 31;
-        }
-        case '8': case 'august': {
-            return 31;
-        }
-        case '9': case 'september': {
-            return 30;
-        }
-        case '10': case 'october': {
-            return 31;
-        }
-        case '11': case 'november': {
-            return 30;
-        }
-        case '12': case 'december': {
-            return 31;
-        }
-        default: {
-            return undefined;
-        }
-    }
-}
