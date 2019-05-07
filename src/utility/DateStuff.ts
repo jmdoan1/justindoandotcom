@@ -1,12 +1,18 @@
 import { remainder } from './Shortcuts';
 
+/**
+ * A class for dynamically calculating differences between two Date objects
+ */
 export class DateDiff {
+    /**
+     * The earlier of the two provided dates. Every other 'firstSomething' variable comes from this date
+     */
     firstDate: Date;
+    /**
+     * The later of the two provided dates. Every other 'secondSomething' variable comes from this date
+     */
     secondDate: Date;
 
-    /**
-     * The year of the earlier date
-     */
     firstYear: number;
     secondYear: number;
     firstMonth: number;
@@ -22,7 +28,13 @@ export class DateDiff {
     firstMillisecond: number;
     secondMillisecond: number;
 
-    constructor(oneDate: Date, anotherDate: Date) {
+    /**
+     * Dynamically calculate differences between two Date objects. Earliest date is determined within class, order doesn't matter
+     * @param oneDate any date
+     * @param anotherDate any other date
+     * @param ignoreTimeZones Optional. Setting this to true treats provided dates as absolute. Default behavior gets UTC time values
+     */
+    constructor(oneDate: Date, anotherDate: Date, ignoreTimeZones?: boolean) {
         if (oneDate <= anotherDate) {
             this.firstDate = oneDate;
             this.secondDate = anotherDate;
@@ -31,30 +43,49 @@ export class DateDiff {
             this.secondDate = oneDate;
         }
 
-        this.firstYear = this.firstDate.getUTCFullYear();
-        this.secondYear = this.secondDate.getUTCFullYear();
-        // months apparently 0 indexed, adding + 1 because this is actual calendars work
-        this.firstMonth = this.firstDate.getUTCMonth() + 1;
-        this.secondMonth = this.secondDate.getUTCMonth() + 1;
-        this.firstDay = this.firstDate.getUTCDate();
-        this.secondDay = this.secondDate.getUTCDate();
-        this.firstHour = this.firstDate.getUTCHours();
-        this.secondHour = this.secondDate.getUTCHours();
-        this.firstMinute = this.firstDate.getUTCMinutes();
-        this.secondMinute = this.secondDate.getUTCMinutes();
-        this.firstSecond = this.firstDate.getUTCSeconds();
-        this.secondSecond = this.secondDate.getUTCSeconds();
-        this.firstMillisecond = this.firstDate.getUTCMilliseconds();
-        this.secondMillisecond = this.secondDate.getUTCMilliseconds();
+        if (ignoreTimeZones) {
+            this.firstYear = this.firstDate.getFullYear();
+            this.secondYear = this.secondDate.getFullYear();
+            // months apparently 0 indexed, adding + 1 because this is actual calendars work
+            this.firstMonth = this.firstDate.getMonth() + 1;
+            this.secondMonth = this.secondDate.getMonth() + 1;
+            this.firstDay = this.firstDate.getDate();
+            this.secondDay = this.secondDate.getDate();
+            this.firstHour = this.firstDate.getHours();
+            this.secondHour = this.secondDate.getHours();
+            this.firstMinute = this.firstDate.getMinutes();
+            this.secondMinute = this.secondDate.getMinutes();
+            this.firstSecond = this.firstDate.getSeconds();
+            this.secondSecond = this.secondDate.getSeconds();
+            this.firstMillisecond = this.firstDate.getMilliseconds();
+            this.secondMillisecond = this.secondDate.getMilliseconds();
+        } else {
+            this.firstYear = this.firstDate.getUTCFullYear();
+            this.secondYear = this.secondDate.getUTCFullYear();
+            // months apparently 0 indexed, adding + 1 because this is actual calendars work
+            this.firstMonth = this.firstDate.getUTCMonth() + 1;
+            this.secondMonth = this.secondDate.getUTCMonth() + 1;
+            this.firstDay = this.firstDate.getUTCDate();
+            this.secondDay = this.secondDate.getUTCDate();
+            this.firstHour = this.firstDate.getUTCHours();
+            this.secondHour = this.secondDate.getUTCHours();
+            this.firstMinute = this.firstDate.getUTCMinutes();
+            this.secondMinute = this.secondDate.getUTCMinutes();
+            this.firstSecond = this.firstDate.getUTCSeconds();
+            this.secondSecond = this.secondDate.getUTCSeconds();
+            this.firstMillisecond = this.firstDate.getUTCMilliseconds();
+            this.secondMillisecond = this.secondDate.getUTCMilliseconds();
+        }
 
     }
 
+    /**
+     * Returns integer value of years passed. Rounds down (e.g. Sept 2 2018 to Sept 1 2019 = 0 years)
+     */
     public diffYears(): number {
         var years = this.secondYear - this.firstYear;
 
-        if (this.yearsNeedRollBack() && years > 0) {
-            years = years - 1;
-        }
+        if (this.yearsNeedRollBack() && years > 0) { years = years - 1; }
 
         return years;
     }
@@ -66,14 +97,15 @@ export class DateDiff {
         );
     }
 
+    /**
+     * Returns integer value of months after years have been factored. Rounds down (e.g. Sept 2 2018 to Oct 30 2019 = 1 month)
+     */
     diffMonthsAfterYears(): number {
         var months = this.secondMonth >= this.firstMonth ?
             this.secondMonth - this.firstMonth :
             12 - (this.firstMonth - this.secondMonth);
 
-        if (this.monthsNeedRollBack()) {
-            months = months > 0 ? months - 1 : 11;
-        }
+        if (this.monthsNeedRollBack()) { months = months > 0 ? months - 1 : 11; }
 
         return months;
     }
@@ -85,14 +117,23 @@ export class DateDiff {
         );
     }
 
+    /**
+     * Returns integer value of total months. Rounds down (e.g. Sept 2 2018 to Oct 30 2019 = 13 months)
+     */
     diffMonthsTotal(): number {
         return this.diffMonthsAfterYears() + (this.diffYears() * 12);
     }
 
+    /**
+     * Returns integer value of weeks. Rounds down (e.g. Sept 2 2018 to Sept 12 2018 = 1 week)
+     */
     diffWeeksTotal(): number {
         return Math.floor(this.diffInMilliseconds() / (7 * 24 * 60 * 60 * 1000));
     }
 
+    /**
+     * Returns integer value of days after months have been factored. Rounds down (e.g. Sept 2 2018 5pm to Oct 13 2018 4:59pm = 10 days)
+     */
     diffDaysAfterMonths(): number {
         var days = this.secondDay - this.firstDay;
 
@@ -119,10 +160,16 @@ export class DateDiff {
         );
     }
 
+    /**
+     * Returns integer value of total days. Rounds down (e.g. Sept 2 2018 5pm to Oct 13 2018 4:59pm = 40 days)
+     */
     diffDaysTotal(): number {
         return Math.floor(this.diffInMilliseconds() / (24 * 60 * 60 * 1000));
     }
 
+    /**
+     * Returns integer value of hours after days have been factored. Rounds down (e.g. Sept 2 2018 5pm to Oct 13 2018 4:59pm = 23 hours)
+     */
     diffHoursAfterDays(): number {
         var hours = (this.secondHour < this.firstHour) ?
             24 - (this.firstHour - this.secondHour) :
@@ -140,10 +187,16 @@ export class DateDiff {
         );
     }
 
+    /**
+     * Returns integer value of total hours. Rounds down (e.g. Sept 2 2018 5pm to Sept 4 2018 4:59pm = 47 hours)
+     */
     diffHoursTotal(): number {
         return Math.floor(this.diffInMilliseconds() / (60 * 60 * 1000));
     }
 
+    /**
+     * Returns integer value of minutes after hours have been factored. Rounds down (e.g. Sept 2 2018 5pm to Sept 2 2018 7:59pm = 59 minutes)
+     */
     diffMinutesAfterHours() {
         var minutes = (this.secondMinute < this.firstMinute) ?
             60 - (this.firstMinute - this.secondMinute) :
@@ -161,6 +214,9 @@ export class DateDiff {
         );
     }
 
+    /**
+     * Returns integer value of total minutes. Rounds down (e.g. Sept 2 2018 5pm to Sept 2 2018 7:59pm = 179 minutes)
+     */
     diffMinutesTotal(): number {
         return Math.floor(this.diffInMilliseconds() / (60 * 1000));
     }
