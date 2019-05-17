@@ -46,7 +46,7 @@ export class DateDiff {
         if (ignoreTimeZones) {
             this.firstYear = this.firstDate.getFullYear();
             this.secondYear = this.secondDate.getFullYear();
-            // months apparently 0 indexed, adding + 1 because this is actual calendars work
+            // months apparently 0 indexed, adding + 1 because this is how actual calendars work
             this.firstMonth = this.firstDate.getMonth() + 1;
             this.secondMonth = this.secondDate.getMonth() + 1;
             this.firstDay = this.firstDate.getDate();
@@ -62,7 +62,7 @@ export class DateDiff {
         } else {
             this.firstYear = this.firstDate.getUTCFullYear();
             this.secondYear = this.secondDate.getUTCFullYear();
-            // months apparently 0 indexed, adding + 1 because this is actual calendars work
+            // months apparently 0 indexed, adding + 1 because this is how actual calendars work
             this.firstMonth = this.firstDate.getUTCMonth() + 1;
             this.secondMonth = this.secondDate.getUTCMonth() + 1;
             this.firstDay = this.firstDate.getUTCDate();
@@ -85,15 +85,30 @@ export class DateDiff {
     public diffYears(): number {
         var years = this.secondYear - this.firstYear;
 
-        if (this.yearsNeedRollBack() && years > 0) { years = years - 1; }
+        if (this.yearsNeedRollback() && years > 0) { years = years - 1; }
 
         return years;
     }
 
-    private yearsNeedRollBack(): boolean {
+    /**
+     * This comment block attempts to explain ALL 'thingsNeedTollBack'
+     * This fujnction checks TWO things:
+     * 1. If month of the second date is earlier than the month of the first date. 
+     * * * e.g. 4/15/2018 - 3/15/2019: Years were just calculated at 1 
+     * * * but need to be reduced to 0
+     * 2. If the months are the same AND had to be rolled back
+     * * * eg. 4/15/2018 - 4/14/2019 Years and months were just caluclated at 1 and 0 
+     * * * but both need to be rolled back to 0 and 11
+     * 
+     * This logic flows ALL the way through to milliseconds such that 4/15/2018 02:15:3000 AM - 4/15/2019 02:15:2999
+     * triggers secondsNeedRollback, which triggers minutesNeedRollback, etc. etc. turning original calculations
+     * from 1 year, 0 months, 0 days, 0 hours, 0 minuts, 0 seconds, and -1 milliseconds
+     * into 0 years, 11 months, 30 days, 23 hours, 59 minutes, 59 seconds, and 999 milliseconds
+     */
+    private yearsNeedRollback(): boolean {
         return (
             (this.secondMonth < this.firstMonth) ||
-            (this.secondMonth === this.firstMonth && this.monthsNeedRollBack())
+            (this.secondMonth === this.firstMonth && this.monthsNeedRollback())
         );
     }
 
@@ -105,15 +120,15 @@ export class DateDiff {
             this.secondMonth - this.firstMonth :
             12 - (this.firstMonth - this.secondMonth);
 
-        if (this.monthsNeedRollBack()) { months = months > 0 ? months - 1 : 11; }
+        if (this.monthsNeedRollback()) { months = months > 0 ? months - 1 : 11; }
 
         return months;
     }
 
-    private monthsNeedRollBack(): boolean {
+    private monthsNeedRollback(): boolean {
         return (
             (this.secondDay < this.firstDay) ||
-            (this.secondDay === this.firstDay && this.daysNeedRollBack())
+            (this.secondDay === this.firstDay && this.daysNeedRollback())
         );
     }
 
@@ -146,17 +161,17 @@ export class DateDiff {
             days = daysInSecondMonth - (this.firstDay - this.secondDay);
         }
 
-        if (this.daysNeedRollBack()) {
+        if (this.daysNeedRollback()) {
             days = (days > 1) ? days - 1 : (daysInSecondMonth - 1);
         }
 
         return days;
     }
     
-    private daysNeedRollBack(): boolean {
+    private daysNeedRollback(): boolean {
         return (
             (this.secondHour < this.firstHour) ||
-            (this.secondHour === this.firstHour && this.hoursNeedRollBack())
+            (this.secondHour === this.firstHour && this.hoursNeedRollback())
         );
     }
 
@@ -175,15 +190,15 @@ export class DateDiff {
             24 - (this.firstHour - this.secondHour) :
             this.secondHour - this.firstHour;
 
-        if (this.hoursNeedRollBack()) { hours = (hours > 0) ? hours - 1 : 23; }
+        if (this.hoursNeedRollback()) { hours = (hours > 0) ? hours - 1 : 23; }
 
         return hours;
     }
     
-    private hoursNeedRollBack(): boolean {
+    private hoursNeedRollback(): boolean {
         return (
             (this.secondMinute < this.firstMinute) ||
-            (this.secondMinute === this.firstMinute && this.minutesNeedRollBack())
+            (this.secondMinute === this.firstMinute && this.minutesNeedRollback())
         );
     }
 
@@ -202,15 +217,15 @@ export class DateDiff {
             60 - (this.firstMinute - this.secondMinute) :
             this.secondMinute - this.firstMinute;
 
-        if (this.minutesNeedRollBack()) { minutes = minutes - 1; }
+        if (this.minutesNeedRollback()) { minutes = minutes - 1; }
 
         return minutes;
     }
     
-    private minutesNeedRollBack(): boolean {
+    private minutesNeedRollback(): boolean {
         return (
             (this.secondSecond < this.firstSecond) ||
-            (this.secondSecond === this.firstSecond && this.secondsNeedRollBack())
+            (this.secondSecond === this.firstSecond && this.secondsNeedRollback())
         );
     }
 
@@ -221,22 +236,35 @@ export class DateDiff {
         return Math.floor(this.diffInMilliseconds() / (60 * 1000));
     }
 
+    /**
+     * Returns integer value of minutes after hours have been factored. Rounds down (e.g. Sept 2 2018 5:00:50pm to Sept 2 2018 5:10:20pm = 30 seconds)
+     */
     diffSecondsAfterMinutes(): number {
         var seconds = (this.secondSecond < this.firstSecond) ?
             60 - (this.firstSecond - this.secondSecond) :
             this.secondSecond - this.firstSecond;
 
-        if (this.secondsNeedRollBack()) { seconds = seconds - 1; }
+        if (this.secondsNeedRollback()) { seconds = seconds - 1; }
 
         return seconds;
     }
 
-    private secondsNeedRollBack(): boolean {
+    private secondsNeedRollback(): boolean {
         return (
             (this.secondMillisecond < this.firstMillisecond)
         );
     }
 
+    /**
+     * Returns integer value of total seconds. Rounds down (e.g. Sept 2 2018 5:00:35 pm to Sept 2 2018 5:02:34 pm = 119 seconds)
+     */
+    diffSecondsTotal(): number {
+        return Math.floor(this.diffInMilliseconds() / (1000));
+    }
+
+    /**
+     * Returns integer value of milliseconds after seconds have been factored. Rounds down (e.g. Sept 2 2018 5:00:00.900 pm to Sept 2 2018 5:00:01.800 pm = 900 milliseconds)
+     */
     diffMillisecondsAfterSeconds(): number {
         return (this.secondMillisecond < this.firstMillisecond) ?
             60 - (this.firstMillisecond - this.secondMillisecond) :
@@ -247,6 +275,9 @@ export class DateDiff {
         return Date.parse(this.secondDate.toISOString()) - Date.parse(this.firstDate.toISOString());
     }
 
+    /**
+     * Returns "x year(s), x month(s), x day(s), x hour(s), x minute(s), x second(s)"
+     */
     totalTimeString(): string {
         return (
             this.diffYears() + (this.diffYears() === 1 ? ' year, ' : ' years, ') +
