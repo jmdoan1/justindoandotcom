@@ -20,6 +20,48 @@ export default class PageAbout extends React.PureComponent<Props, State> {
     private dobString = 'March 8, 1990 05:21:00 AM EST';
     private dob = new Date(this.dobString);
 
+    private links = ([
+        {
+            text: 'LinkedIn', 
+            address: 'https://www.linkedin.com/in/doanjustin/'
+        }, {
+            text: 'Twitter', 
+            address: 'https://twitter.com/AxeEffect3890'
+        }, {
+            text: 'GitHub', 
+            address: 'https://github.com/jmdoan1'
+        }, {
+            text: 'Stack Overflow', 
+            address: 'http://stackoverflow.com/users/4948354/justin-doan'
+        }
+    ]);
+
+    private contacts = ([
+        {
+            method: 'Email',
+            info: 'justindoan@justindoan.com'
+        }, {
+            method: 'Skype',
+            info: 'AxeEffect3890'
+        }, {
+            method: 'Phone',
+            info: '(978) APP-DEV2'
+        }
+    ])
+
+    private facts = ([
+        {
+            name: 'Age',
+            text: this.state ? this.state.ageString : ''
+        }, {
+            name: 'Formal Education',
+            text: 'University of North Florida: BBA Accounting, 2012'
+        }, {
+            name: 'Current Employment',
+            text: 'Software Engineer at OPIE Software'
+        }
+    ])
+
     private fileNames = Shortcuts.randomize([
         'BlueUnderBridge.jpg',
         'BeachMouseRat.jpg',
@@ -31,7 +73,7 @@ export default class PageAbout extends React.PureComponent<Props, State> {
     constructor(props: Props) {
         super(props);
 
-        const constructorAgeString = Shortcuts.dateDiff(this.dob, new Date());
+        const constructorAgeString = new DateDiff(this.dob, new Date()).totalTimeString();
         if (this.fileNames.length > 0) {
             this.state = { displayedImageName: this.fileNames[0], ageString: constructorAgeString };
         } else {
@@ -42,7 +84,7 @@ export default class PageAbout extends React.PureComponent<Props, State> {
             this.imageTimer = setInterval(() => this.cycleImages(), 3000);
         }
 
-        this.ageTimer = setInterval(() => this.cycleAgeLabel(), 1000);
+        this.ageTimer = setInterval(() => this.cycleAgeText(), 1000);
     }
 
     componentWillUnmount() {
@@ -55,7 +97,7 @@ export default class PageAbout extends React.PureComponent<Props, State> {
         }
     }
 
-    private cycleAgeLabel() {
+    private cycleAgeText() {
         this.setState({ ageString: new DateDiff(this.dob, new Date()).totalTimeString() });
     }
 
@@ -74,17 +116,81 @@ export default class PageAbout extends React.PureComponent<Props, State> {
             source = require('../../assets/images/About/' + this.state.displayedImageName);
         }
 
+        const factDisplay = [];
+        if (this.facts.length > 0) {
+            factDisplay.push(<h2 style={{ textAlign: 'center' }}>Quick Facts</h2>);
+
+            for (const fact of this.facts) {
+                factDisplay.push(
+                    <div>
+                        <div className='QuickFact'>
+                            <strong>{fact.name + ': '}</strong>
+                            {fact.name.toLowerCase().trim() === 'age' ? this.state.ageString : fact.text}
+                        </div>
+                        <br />
+                    </div>
+                );
+            }
+        }
+
+        const linkDisplay = [];
+        if (this.links.length > 0) {
+            linkDisplay.push(<h1>Links</h1>);
+
+            for (const link of this.links) {
+                linkDisplay.push(
+                    <a
+                        href={link.address}
+                        target='_blank'
+                    >
+                        <p>
+                            {link.text}
+                        </p>
+                    </a>
+                );
+            }
+        }
+
+        const contactDisplay = [];
+        if (this.contacts.length > 0) {
+            contactDisplay.push(<h1>Contact</h1>);
+
+            for (const contact of this.contacts) {
+                var infoDisplay = null;
+                if (contact.method.toLowerCase().trim() === 'email') {
+                    infoDisplay = (
+                        <a
+                            target='_blank'
+                            href={'mailto:' + contact.info}
+                        >
+                            {contact.info}
+                        </a>
+                    );
+                } else {
+                    infoDisplay = contact.info;
+                }
+
+                contactDisplay.push(
+                    <div>
+                        <div className='ContactMethod'>
+                            <strong>{contact.method + ': '}</strong>
+                            {infoDisplay}
+                        </div>
+                        <br />
+                    </div>
+                );
+            }
+        }
+
         return (
             <div className="AboutPage">
                 <img src={source} className="AboutImage" />
                 <div className="AboutText">
                     <h1>Who am I?</h1>
-                    <h2>Age:</h2>
-                    {this.state.ageString}
-                    <h2>Formal Education:</h2>
-                    University of North Florida: BBA Accounting, 2012 <br/><br/>
-                    <h2>Favorite Color:</h2>
-                    I'm color blind and that question was rude af. 
+                    I am a self-taught developer with a formal education (and ~6 years of full time experience) in accounting and finance. I started learning native iOS development in 2015, freelancing iOS in 2017, and, as of 2018, have now moved on to full time employment and freelancing in multiple frameworks and laguages.
+                    {factDisplay}
+                    {linkDisplay}
+                    {contactDisplay}
                     <br/><br/>
                     <pre><code>
                         let f = 'this is a code sample example';
@@ -92,16 +198,7 @@ export default class PageAbout extends React.PureComponent<Props, State> {
                     <br/><br/>
                     <Gist id='fbb9101764db0ba9fd4987425f427efb' />
                     <br/><br/>
-                    
-                    <h1>Lorem ipsum dolor sit amet.</h1>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec egestas urna ac ultricies ullamcorper. Etiam venenatis lectus orci, sed laoreet nulla congue sed. Nunc sed tincidunt nunc. In sit amet ligula dignissim, sollicitudin magna ac, egestas ante. Aliquam tempor eu sem a mattis. Suspendisse gravida sit amet nibh at condimentum. Maecenas at nunc mi. Phasellus fringilla, libero quis dictum dapibus, dolor tortor dapibus leo, tincidunt aliquam dui elit at mi. Vestibulum nulla felis, egestas a lobortis sed, euismod vel turpis. Morbi pellentesque porttitor auctor. Aenean non interdum diam. Fusce feugiat purus quam, aliquet eleifend enim cursus quis.
-                    
-                    <h1>Lorem ipsum dolor sit amet.</h1>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec egestas urna ac ultricies ullamcorper. Etiam venenatis lectus orci, sed laoreet nulla congue sed. Nunc sed tincidunt nunc. In sit amet ligula dignissim, sollicitudin magna ac, egestas ante. Aliquam tempor eu sem a mattis. Suspendisse gravida sit amet nibh at condimentum. Maecenas at nunc mi. Phasellus fringilla, libero quis dictum dapibus, dolor tortor dapibus leo, tincidunt aliquam dui elit at mi. Vestibulum nulla felis, egestas a lobortis sed, euismod vel turpis. Morbi pellentesque porttitor auctor. Aenean non interdum diam. Fusce feugiat purus quam, aliquet eleifend enim cursus quis.
-                    
-                    <h1>Lorem ipsum dolor sit amet.</h1>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec egestas urna ac ultricies ullamcorper. Etiam venenatis lectus orci, sed laoreet nulla congue sed. Nunc sed tincidunt nunc. In sit amet ligula dignissim, sollicitudin magna ac, egestas ante. Aliquam tempor eu sem a mattis. Suspendisse gravida sit amet nibh at condimentum. Maecenas at nunc mi. Phasellus fringilla, libero quis dictum dapibus, dolor tortor dapibus leo, tincidunt aliquam dui elit at mi. Vestibulum nulla felis, egestas a lobortis sed, euismod vel turpis. Morbi pellentesque porttitor auctor. Aenean non interdum diam. Fusce feugiat purus quam, aliquet eleifend enim cursus quis.
-                </div>
+                 </div>
             </div>
         );
     }

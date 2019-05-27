@@ -21,6 +21,23 @@
     margin-right: 3vw; /* match .AboutImage's */
 }
 
+.QuickFact{
+    flex-direction: row;
+    text-align: center;
+}
+
+.ContactMethod{
+    flex-direction: row;
+    text-align: center;
+}
+
 h1{
     text-align: center;
 }
+
+a{
+    color: black;
+    font-style: italic;
+    text-align: center;
+}
+
