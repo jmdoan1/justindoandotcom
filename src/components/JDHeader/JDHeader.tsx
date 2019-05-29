@@ -22,38 +22,34 @@ class JDHeader extends React.PureComponent<Props> {
     }
     
     render() {
+        const buttonDisplay = [];
+        if (this.props.routes.length > 0) {
+            for (const route of this.props.routes) {
+                buttonDisplay.push(
+                    <td colSpan={1} className={this.getClassName(route.path)}>
+                        <Link
+                            key={route.key}
+                            to={route.path}
+                            className='JDHeaderLink'
+                        >
+                            {route.name}
+                        </Link>
+                    </td>
+                );
+            }
+        }
+
         return (
             <header className='JDHeader'>
                 <table cellSpacing={0} cellPadding={0} className='JDHeaderTable'>
-                    <tr>
-                        <td colSpan={4}>
-                            <p className='JDHeaderName'>{this.props.name}</p>
-                        </td>
-                        <td colSpan={1} className={this.getClassName(this.props.routes[0].path)}>
-                            <Link
-                                to={this.props.routes[0].path}
-                                className='JDHeaderLink'
-                            >
-                                {this.props.routes[0].name}
-                            </Link>
-                        </td>
-                        <td colSpan={1} className={this.getClassName(this.props.routes[1].path)}>
-                            <Link
-                                to={this.props.routes[1].path}
-                                className='JDHeaderLink'
-                            >
-                                {this.props.routes[1].name}
-                            </Link>
-                        </td>
-                        <td colSpan={1} className={this.getClassName(this.props.routes[2].path)}>
-                            <Link
-                                to={this.props.routes[2].path}
-                                className='JDHeaderLink'
-                            >
-                                {this.props.routes[2].name}
-                            </Link>
-                        </td>
-                    </tr>
+                    <tbody>
+                        <tr>
+                            <td colSpan={this.props.routes.length + 1}>
+                                <p className='JDHeaderName'>{this.props.name}</p>
+                            </td>
+                            {buttonDisplay}
+                        </tr>
+                    </tbody>
                 </table>
             </header>
         );
