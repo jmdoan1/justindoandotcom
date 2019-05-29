@@ -7,7 +7,9 @@ export default class PageTutorials extends React.PureComponent {
         return (
             <div>
                 <h2>Under Construction</h2>
-                <br /><br />
+                Please ignore everything on this page
+                <br />
+                <br />
                 <pre>
                     <code>
                     let f = 'this is a code sample example';

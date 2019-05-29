@@ -11,18 +11,18 @@ export interface Props extends RouteComponentProps {
 class JDHeader extends React.PureComponent<Props> {
     getClassName(path: string): string {
         const currentPath = this.props.location.pathname;
-        if (
-            currentPath.toLowerCase() === path.toLowerCase() ||
-            (currentPath === '/' && path.toLowerCase() === this.props.defaultRoute.toLocaleLowerCase())) {
 
-                return 'JDHeaderButton Selected'
+        if (currentPath.toLowerCase() === path.toLowerCase() ||
+            (!this.props.routes.map(rt => rt.path).includes(currentPath) &&
+                path.toLowerCase() === this.props.defaultRoute.toLowerCase())) {
+            return 'JDHeaderButton Selected'
         } else {
             return 'JDHeaderButton'
         }
     }
     
     render() {
-        const buttonDisplay = [];
+        var buttonDisplay = [];
         if (this.props.routes.length > 0) {
             for (const route of this.props.routes) {
                 buttonDisplay.push(
