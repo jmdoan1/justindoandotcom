@@ -60,7 +60,10 @@ export default class PageAbout extends React.PureComponent<Props, State> {
             text: <>Software Engineer at <a href='https://www.opiesoftware.com' target='_blank'>OPIE Software</a></>
         }, {
             name: 'Why this website is greyscale',
-            text: 'I am colorblind.'
+            text: 'I am colorblind :('
+        }, {
+            name: 'How this website was built',
+            text: <>It's open source, <a href='https://github.com/jmdoan1/justindoandotcom' target='_blank'>check it out on GitHub!</a></>
         }
     ])
 
@@ -125,10 +128,10 @@ export default class PageAbout extends React.PureComponent<Props, State> {
             for (const fact of this.facts) {
                 factDisplay.push(
                     <div>
-                        <div className='QuickFact'>
+                        <li className='QuickFact'>
                             <strong>{fact.name + ': '}</strong>
                             {fact.name.toLowerCase().trim() === 'age' && this.state.ageString ? this.state.ageString : fact.text}
-                        </div>
+                        </li>
                         <br />
                     </div>
                 );

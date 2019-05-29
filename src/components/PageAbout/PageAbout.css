@@ -23,7 +23,7 @@
 
 .QuickFact{
     flex-direction: row;
-    text-align: center;
+    text-align: justify;
 }
 
 .ContactMethod{
