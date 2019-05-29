@@ -50,8 +50,14 @@ export default class PageAbout extends React.PureComponent<Props, State> {
 
     private facts = ([
         {
+            name: 'Name',
+            text: 'Justin Doan'
+        }, {
             name: 'Age',
             text: this.state ? this.state.ageString : ''
+        }, {
+            name: 'Website',
+            text: <a href='https://www.justindoan.com' target='_blank'>justindoan.com</a>
         }, {
             name: 'Formal Education',
             text: 'University of North Florida: BBA Accounting, 2012'
