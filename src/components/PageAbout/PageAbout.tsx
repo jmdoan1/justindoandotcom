@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Gist from 'react-gist';
 import * as Shortcuts from '../../utility/Shortcuts';
 import { DateDiff } from '../../utility/DateStuff';
 import './PageAbout.css'
@@ -58,7 +57,10 @@ export default class PageAbout extends React.PureComponent<Props, State> {
             text: 'University of North Florida: BBA Accounting, 2012'
         }, {
             name: 'Current Employment',
-            text: 'Software Engineer at OPIE Software'
+            text: <>Software Engineer at <a href='https://www.opiesoftware.com' target='_blank'>OPIE Software</a></>
+        }, {
+            name: 'Why this website is greyscale',
+            text: 'I am colorblind.'
         }
     ])
 
@@ -81,10 +83,10 @@ export default class PageAbout extends React.PureComponent<Props, State> {
         }
 
         if (this.fileNames.length > 1) {
-            this.imageTimer = setInterval(() => this.cycleImages(), 3000);
+            this.imageTimer = setInterval(() => this.cycleImages(), 2000);
         }
 
-        this.ageTimer = setInterval(() => this.cycleAgeText(), 1000);
+        this.ageTimer = setInterval(() => this.cycleAgeText(), 500);
     }
 
     componentWillUnmount() {
@@ -125,7 +127,7 @@ export default class PageAbout extends React.PureComponent<Props, State> {
                     <div>
                         <div className='QuickFact'>
                             <strong>{fact.name + ': '}</strong>
-                            {fact.name.toLowerCase().trim() === 'age' ? this.state.ageString : fact.text}
+                            {fact.name.toLowerCase().trim() === 'age' && this.state.ageString ? this.state.ageString : fact.text}
                         </div>
                         <br />
                     </div>
@@ -140,6 +142,7 @@ export default class PageAbout extends React.PureComponent<Props, State> {
             for (const link of this.links) {
                 linkDisplay.push(
                     <a
+                        className='AboutLink'
                         href={link.address}
                         target='_blank'
                     >
@@ -160,6 +163,7 @@ export default class PageAbout extends React.PureComponent<Props, State> {
                 if (contact.method.toLowerCase().trim() === 'email') {
                     infoDisplay = (
                         <a
+                            className='AboutLink'
                             target='_blank'
                             href={'mailto:' + contact.info}
                         >
@@ -191,13 +195,6 @@ export default class PageAbout extends React.PureComponent<Props, State> {
                     {factDisplay}
                     {linkDisplay}
                     {contactDisplay}
-                    <br/><br/>
-                    <pre><code>
-                        let f = 'this is a code sample example';
-                    </code></pre>
-                    <br/><br/>
-                    <Gist id='fbb9101764db0ba9fd4987425f427efb' />
-                    <br/><br/>
                  </div>
             </div>
         );

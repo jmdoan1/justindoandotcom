@@ -1,54 +1,63 @@
-.JDHeader {
-    background-color: #909090;
-    width: 100%;
-    height: fit-content;
-    margin: 0%;
-    padding: 0%;
-  }
-  
-  .JDHeaderTable {
-    width: 100%;
-    table-layout: fixed;
-  }
-  
-  .JDHeaderName {
-    text-align: left;
-    font-size: 6vw;
-    font-weight: bolder;
-    width: fit-content;
-    height: fit-content;
-    margin-left: -0.5vw;
-    margin-bottom: -1.5vw;
-    margin-top: 0;
-    margin-right: 0;
-    padding: 0;
-    color: #404040; /* same as .App background-color */
-  }
-  
-  .JDHeaderButton{
-    height: 50%;
-    background-color:rgba(255, 255, 255, 0.5); 
-    color: white;
-    font-weight: bold;
-    margin-bottom: 0;
-    margin-left: 0%;
-    margin-right: 0%;
-    padding: 0;
-    align-self: flex-end;
-  }
+.JDHeader{
+  background-color: #909090;
+  width: 100%;
+  height: fit-content;
+  margin: 0%;
+  padding: 0%;
+}
 
-  .JDHeaderButtonHovered{
-    background-color:rgba(255, 255, 255, 0.65); 
-    color: white;
-    font-weight: bold;
-    margin: 0%;
-    padding: 0%;
-  }
+.JDHeaderTable{
+  width: 100%;
+  table-layout: fixed;
+}
 
-  .JDHeaderButtonSelected{
-    background-color: #404040; /* same as .App background-color */
-    color: white;
-    font-weight: bold;
-    margin: 0%;
-    padding: 0%;
-  }
+.JDHeaderName{
+  text-align: left;
+  font-size: 6vw;
+  font-weight: bolder;
+  width: fit-content;
+  height: fit-content;
+  margin-left: -0.5vw;
+  margin-bottom: -1.5vw;
+  margin-top: 0;
+  margin-right: 0;
+  padding: 0;
+  color: #404040; /* same as .App background-color */
+}
+
+.JDHeaderButton{
+  height: 100%;
+  background-color:rgba(255, 255, 255, 0.5); 
+  color: white;
+  font-weight: bold;
+  margin-bottom: 0;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 0;
+}
+
+.JDHeaderButton:hover{
+  background-color:rgba(255, 255, 255, 0.65);
+}
+
+.Selected{
+  background-color: #404040; /* same as .App background-color */
+}
+
+.Selected:hover{ /* override .JDHeaderButton:hover behavior -- match .Selected */
+  background-color: #404040; /* same as .App background-color */
+}
+
+.JDHeaderLink{
+  display: block;
+  width:100%;
+  height: 100%;
+  margin-top: -100px;
+  margin-bottom: -100px;
+  padding-top: 100px;
+  padding-bottom: 100px;
+  color: inherit;
+  text-decoration: inherit;
+  font-style: inherit;
+  border: 1px solid #404040;
+}
