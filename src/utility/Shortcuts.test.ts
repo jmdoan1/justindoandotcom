@@ -1,4 +1,4 @@
-import { remainder, loopIndex } from './Shortcuts';
+import remainder, { loopIndex } from './Shortcuts';
 
 test('remainder', () => {
     expect(remainder(4, 6)).toBe(4);

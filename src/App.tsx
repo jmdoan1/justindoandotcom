@@ -1,6 +1,6 @@
 import * as React from 'react';
 import './App.css';
-import PageProjects from './components/PageProjects/PageProjects';
+import PagePortfolio from './components/PagePortfolio/PagePortfolio';
 import JDHeader from './components/JDHeader/JDHeader';
 import PageAbout from './components/PageAbout/PageAbout';
 import PageTutorials from './components/PageTutorials/PageTutorials';
@@ -12,7 +12,7 @@ class App extends React.Component {
       path: '/projects',
       exact: true,
       name: 'Projects',
-      main: () => <PageProjects />
+      main: () => <PagePortfolio />
     },
     {
       path: '/tutorials',
@@ -26,10 +26,20 @@ class App extends React.Component {
     }
   ];
 
-  private default = () => <PageProjects />;
+  private defaultComponent = () => <PagePortfolio />;
   private defaultEquivalent = '/projects';
 
   public render() {
+    const mappedRoutes = (
+      this.routes.map((route, index) => (
+        <Route
+          key={index}
+          path={route.path}
+          exact={route.exact}
+          component={route.main}
+        />
+      )));
+
     return (
       <Router>
         <div className='App'>
@@ -41,8 +51,11 @@ class App extends React.Component {
 
           <div>
             <Switch>
-              {this.routes.map((route, index) => (<Route key={index} path={route.path} exact={route.exact} component={route.main} />))}
-              <Route key={this.routes.length} component={this.default}/>
+              {mappedRoutes}
+              <Route
+                key={this.routes.length}
+                component={this.defaultComponent}
+              />
             </Switch>
           </div>
         </div>

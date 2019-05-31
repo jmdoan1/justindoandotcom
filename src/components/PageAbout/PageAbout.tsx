@@ -21,16 +21,16 @@ export default class PageAbout extends React.PureComponent<Props, State> {
 
     private links = ([
         {
-            text: 'LinkedIn', 
+            text: 'LinkedIn',
             address: 'https://www.linkedin.com/in/doanjustin/'
         }, {
-            text: 'Twitter', 
+            text: 'Twitter',
             address: 'https://twitter.com/AxeEffect3890'
         }, {
-            text: 'GitHub', 
+            text: 'GitHub',
             address: 'https://github.com/jmdoan1'
         }, {
-            text: 'Stack Overflow', 
+            text: 'Stack Overflow',
             address: 'http://stackoverflow.com/users/4948354/justin-doan'
         }
     ]);
@@ -84,7 +84,11 @@ export default class PageAbout extends React.PureComponent<Props, State> {
     constructor(props: Props) {
         super(props);
 
-        const constructorAgeString = new DateDiff(this.dob, new Date()).totalTimeString();
+        const constructorAgeString = new DateDiff(
+            this.dob,
+            new Date()
+        ).totalTimeString();
+
         if (this.fileNames.length > 0) {
             this.state = { displayedImageName: this.fileNames[0], ageString: constructorAgeString };
         } else {
@@ -113,7 +117,7 @@ export default class PageAbout extends React.PureComponent<Props, State> {
     }
 
     private cycleImages() {
-        const currentIndex = this.fileNames.indexOf(this.state.displayedImageName || ''); 
+        const currentIndex = this.fileNames.indexOf(this.state.displayedImageName || '');
         const newIndex = Shortcuts.loopIndex(currentIndex, this.fileNames.length);
 
         if (newIndex !== undefined) {
@@ -129,14 +133,14 @@ export default class PageAbout extends React.PureComponent<Props, State> {
 
         const factDisplay = [];
         if (this.facts.length > 0) {
-            factDisplay.push(<h2 style={{ textAlign: 'center' }}>Quick Facts</h2>);
+            factDisplay.push(<h2 key={Math.random()} style={{ textAlign: 'center' }}>Quick Facts</h2>);
 
             for (const fact of this.facts) {
                 factDisplay.push(
-                    <div>
+                    <div key={Math.random()}>
                         <li className='QuickFact'>
                             <strong>{fact.name + ': '}</strong>
-                            {fact.name.toLowerCase().trim() === 'age' && this.state.ageString ? this.state.ageString : fact.text}
+                            {(fact.name.toLowerCase().trim() === 'age' && this.state.ageString) ? this.state.ageString : fact.text}
                         </li>
                         <br />
                     </div>
@@ -146,11 +150,12 @@ export default class PageAbout extends React.PureComponent<Props, State> {
 
         const linkDisplay = [];
         if (this.links.length > 0) {
-            linkDisplay.push(<h1>Links</h1>);
+            linkDisplay.push(<h1 key={Math.random()}>Links</h1>);
 
             for (const link of this.links) {
                 linkDisplay.push(
                     <a
+                        key={Math.random()}
                         className='AboutLink'
                         href={link.address}
                         target='_blank'
@@ -165,7 +170,7 @@ export default class PageAbout extends React.PureComponent<Props, State> {
 
         const contactDisplay = [];
         if (this.contacts.length > 0) {
-            contactDisplay.push(<h1>Contact</h1>);
+            contactDisplay.push(<h1 key={Math.random()}>Contact</h1>);
 
             for (const contact of this.contacts) {
                 var infoDisplay = null;
@@ -184,7 +189,7 @@ export default class PageAbout extends React.PureComponent<Props, State> {
                 }
 
                 contactDisplay.push(
-                    <div>
+                    <div key={Math.random()}>
                         <div className='ContactMethod'>
                             <strong>{contact.method + ': '}</strong>
                             {infoDisplay}
@@ -196,15 +201,15 @@ export default class PageAbout extends React.PureComponent<Props, State> {
         }
 
         return (
-            <div className="AboutPage">
-                <img src={source} className="AboutImage" />
-                <div className="AboutText">
+            <div className='AboutPage'>
+                <img src={source} className='AboutImage' />
+                <div className='AboutText'>
                     <h1>Who am I?</h1>
-                    I am a self-taught developer with a formal education (and ~6 years of full time experience) in accounting and finance. I started learning native iOS development in 2015, freelancing iOS in 2017, and, as of 2018, have now moved on to full time employment and freelancing in multiple frameworks, platforms, and laguages.
+                    I am a self-taught developer with a formal education and ~6 years of full time experience in accounting and finance. I started learning native iOS development in 2015, freelancing iOS in 2017, and, as of 2018, have now moved on to full time employment and freelancing in multiple frameworks, platforms, and laguages.
                     {factDisplay}
                     {linkDisplay}
                     {contactDisplay}
-                 </div>
+                </div>
             </div>
         );
     }

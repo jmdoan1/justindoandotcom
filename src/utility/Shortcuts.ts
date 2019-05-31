@@ -11,7 +11,7 @@ export function randomize(arr: any[]) {
  * @param x The dividend
  * @param overY The divisor
  */
-export function remainder(x: number, overY: number): number {
+export default function remainder(x: number, overY: number): number {
     // eg 6 / 4
     return (
         Math.round(

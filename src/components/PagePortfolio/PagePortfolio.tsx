@@ -5,22 +5,22 @@ export interface Props {
   placeholderprop?: string;
 }
 
-export default class PageProjects extends React.PureComponent<Props> {
+export default class PagePortfolio extends React.PureComponent<Props> {
   render() {
     return (
       <div>
         <ProjectThumbnail
-          name="WatchFlippers"
-          tagline="An App"
+          name='WatchFlippers'
+          tagline='An App'
           personal={false}
           client={true}
           W2={false}
-          logoString="wflogo.png"
-          logoBgColor="black"
+          logoString='wflogo.png'
+          logoBgColor='black'
         />
         <ProjectThumbnail
-          name="FameStream"
-          tagline="Another App"
+          name='FameStream'
+          tagline='Another App'
           personal={false}
           client={false}
           W2={false}

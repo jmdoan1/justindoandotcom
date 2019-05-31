@@ -23,26 +23,31 @@ export default class ProjectThumbnail extends React.PureComponent<Props> {
             logoDisplay = (
                 <img
                     alt={this.props.logoString}
-                    className="ThumbnailLogo"
-                    style={{ backgroundColor: this.props.logoBgColor || "" }}
+                    className='ThumbnailLogo'
+                    style={{ backgroundColor: this.props.logoBgColor || '' }}
                     src={String(image)}
-                />)
+                />
+            );
         }
 
         let taglineDisplay = null
         if (this.props.tagline) {
-            taglineDisplay = <h4 className="ThumbnailTagline">{this.props.tagline}</h4>
+            taglineDisplay = <h4 className='ThumbnailTagline'>{this.props.tagline}</h4>
         }
 
         let supporterDisplay = null
         if (this.props.personal || this.props.client || this.props.W2) {
-            supporterDisplay = <p className="ThumbnailSupporter">{this.props.personal ? "Personal" : this.props.client ? "Client" : "W2"}</p>
+            supporterDisplay = (
+                <p className='ThumbnailSupporter'>
+                    {this.props.personal ? 'Personal' : this.props.client ? 'Client' : 'W2'}
+                </p>
+            );
         }
 
         return (
-            <div className="ProjectThumbnail">
+            <div className='ProjectThumbnail'>
                 {logoDisplay}
-                <h2 className="ThumbnailTitle">{this.props.name}</h2>
+                <h2 className='ThumbnailTitle'>{this.props.name}</h2>
                 {taglineDisplay}
                 {supporterDisplay}
             </div>

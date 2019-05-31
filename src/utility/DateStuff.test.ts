@@ -24,10 +24,10 @@ test('DatDiff', () => {
     const dateDiff1 = new DateDiff(ogDate, date1)
 
     expect(dateDiff1.diffYears()).toBe(28);
-    expect(dateDiff1.diffMonthsAfterYears()).toBe(11); 
-    expect(dateDiff1.diffDaysAfterMonths()).toBe(27); 
-    expect(dateDiff1.diffHoursAfterDays()).toBe(23); 
-    expect(dateDiff1.diffMinutesAfterHours()).toBe(59); 
+    expect(dateDiff1.diffMonthsAfterYears()).toBe(11);
+    expect(dateDiff1.diffDaysAfterMonths()).toBe(27);
+    expect(dateDiff1.diffHoursAfterDays()).toBe(23);
+    expect(dateDiff1.diffMinutesAfterHours()).toBe(59);
     expect(dateDiff1.diffSecondsAfterMinutes()).toBe(59);
 
     const date2String = 'March 8, 2016 05:20:59 AM EST';
@@ -35,20 +35,20 @@ test('DatDiff', () => {
     const dateDiff2 = new DateDiff(ogDate, date2)
 
     expect(dateDiff2.diffYears()).toBe(25);
-    expect(dateDiff2.diffMonthsAfterYears()).toBe(11); 
-    expect(dateDiff2.diffDaysAfterMonths()).toBe(28); 
-    expect(dateDiff2.diffHoursAfterDays()).toBe(23); 
-    expect(dateDiff2.diffMinutesAfterHours()).toBe(59); 
-    expect(dateDiff2.diffSecondsAfterMinutes()).toBe(59); 
+    expect(dateDiff2.diffMonthsAfterYears()).toBe(11);
+    expect(dateDiff2.diffDaysAfterMonths()).toBe(28);
+    expect(dateDiff2.diffHoursAfterDays()).toBe(23);
+    expect(dateDiff2.diffMinutesAfterHours()).toBe(59);
+    expect(dateDiff2.diffSecondsAfterMinutes()).toBe(59);
 
     const date3String = 'March 8, 2019 05:22:59 AM EST';
     const date3 = new Date(date3String);
     const dateDiff3 = new DateDiff(ogDate, date3)
 
     expect(dateDiff3.diffYears()).toBe(29);
-    expect(dateDiff3.diffMonthsAfterYears()).toBe(0); 
-    expect(dateDiff3.diffDaysAfterMonths()).toBe(0); 
-    expect(dateDiff3.diffHoursAfterDays()).toBe(0); 
-    expect(dateDiff3.diffMinutesAfterHours()).toBe(1); 
+    expect(dateDiff3.diffMonthsAfterYears()).toBe(0);
+    expect(dateDiff3.diffDaysAfterMonths()).toBe(0);
+    expect(dateDiff3.diffHoursAfterDays()).toBe(0);
+    expect(dateDiff3.diffMinutesAfterHours()).toBe(1);
     expect(dateDiff3.diffSecondsAfterMinutes()).toBe(59);
 });

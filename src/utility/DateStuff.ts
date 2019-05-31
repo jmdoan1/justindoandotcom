@@ -1,4 +1,4 @@
-import { remainder } from './Shortcuts';
+import remainder from './Shortcuts';
 
 /**
  * A class for dynamically calculating differences between two Date objects
@@ -91,19 +91,22 @@ export class DateDiff {
     }
 
     /**
-     * This comment block attempts to explain ALL 'thingsNeedTollBack'
-     * This fujnction checks TWO things:
-     * 1. If month of the second date is earlier than the month of the first date. 
-     * * * e.g. 4/15/2018 - 3/15/2019: Years were just calculated at 1 
-     * * * but need to be reduced to 0
-     * 2. If the months are the same AND had to be rolled back
-     * * * eg. 4/15/2018 - 4/14/2019 Years and months were just caluclated at 1 and 0 
-     * * * but both need to be rolled back to 0 and 11
+     * This comment block attempts to explain ALL 'thingsNeedTollBack' functions
+     * This function returns true for either of the following two scenarios:
      * 
-     * This logic flows ALL the way through to milliseconds such that 4/15/2018 02:15:3000 AM - 4/15/2019 02:15:2999
+     * 1. If the month of the second date is earlier than the month of the first date. 
+     * *  e.g. 4/15/2018 - 3/15/2019: Years were just calculated at 1 
+     * *  but need to be reduced to 0
+     * 2. If the months are the same AND THE DAYS had to be rolled back
+     * *  eg. 4/15/2018 - 4/14/2019 Years and months were just caluclated at 1 and 0 
+     * *  but both need to be rolled back to 0 and 11
+     * 
+     * This logic flows ALL the way through to milliseconds such that 
+     * * 4/15/2018 02:15:3000 AM - 4/15/2019 02:15:2999
+     * 
      * triggers secondsNeedRollback, which triggers minutesNeedRollback, etc. etc. turning original calculations
-     * from 1 year, 0 months, 0 days, 0 hours, 0 minuts, 0 seconds, and -1 milliseconds
-     * into 0 years, 11 months, 30 days, 23 hours, 59 minutes, 59 seconds, and 999 milliseconds
+     * * from 1 year, 0 months, 0 days, 0 hours, 0 minuts, 0 seconds, and -1 milliseconds
+     * * into 0 years, 11 months, 30 days, 23 hours, 59 minutes, 59 seconds, and 999 milliseconds
      */
     private yearsNeedRollback(): boolean {
         return (
@@ -167,12 +170,28 @@ export class DateDiff {
 
         return days;
     }
-    
+
     private daysNeedRollback(): boolean {
         return (
             (this.secondHour < this.firstHour) ||
             (this.secondHour === this.firstHour && this.hoursNeedRollback())
         );
+    }
+
+    /**
+     * Returns integer value of weeks after years and months have been accounted for
+     * TODO: add to unit tests
+     */
+    diffWeeksAfterMonths(): number {
+        return Math.floor(this.diffDaysAfterMonths() / 7);
+    }
+
+    /**
+     * Returns integer value of days after weeks have been accounted for
+     * TODO: add to unit tests
+     */
+    diffDaysAfterWeeks(): number {
+        return this.diffDaysAfterMonths() - (this.diffWeeksAfterMonths() * 7);
     }
 
     /**
@@ -194,7 +213,7 @@ export class DateDiff {
 
         return hours;
     }
-    
+
     private hoursNeedRollback(): boolean {
         return (
             (this.secondMinute < this.firstMinute) ||
@@ -221,7 +240,7 @@ export class DateDiff {
 
         return minutes;
     }
-    
+
     private minutesNeedRollback(): boolean {
         return (
             (this.secondSecond < this.firstSecond) ||
@@ -276,16 +295,17 @@ export class DateDiff {
     }
 
     /**
-     * Returns "x year(s), x month(s), x day(s), x hour(s), x minute(s), x second(s)"
+     * Returns 'x year(s), x month(s), x week(s), x day(s), x hour(s), x minute(s), x second(s)'
      */
     totalTimeString(): string {
         return (
-            this.diffYears() + (this.diffYears() === 1 ? ' year, ' : ' years, ') +
-            this.diffMonthsAfterYears() + (this.diffMonthsAfterYears() === 1 ? ' month, ' : ' months, ') +
-            this.diffDaysAfterMonths() + (this.diffDaysAfterMonths() === 1 ? ' day, ' : ' days, ') +
-            this.diffHoursAfterDays() + (this.diffHoursAfterDays() === 1 ? ' hour, ' : ' hours, ') +
-            this.diffMinutesAfterHours() + (this.diffMinutesAfterHours() === 1 ? ' minute, ' : ' minutes, ') +
-            this.diffSecondsAfterMinutes() + (this.diffSecondsAfterMinutes() === 1 ? ' second' : ' seconds')
+            (this.diffYears() > 0 ? this.diffYears() + (this.diffYears() === 1 ? ' year, ' : ' years, ') : '') +
+            (this.diffMonthsAfterYears() > 0 ? this.diffMonthsAfterYears() + (this.diffMonthsAfterYears() === 1 ? ' month, ' : ' months, ') : '') +
+            (this.diffWeeksAfterMonths() > 0 ? this.diffWeeksAfterMonths() + (this.diffWeeksAfterMonths() === 1 ? 'weeks, ' : ' weeks, ') : '') +
+            (this.diffDaysAfterWeeks() > 0 ? this.diffDaysAfterWeeks() + (this.diffDaysAfterWeeks() === 1 ? ' day, ' : ' days, ') : '') +
+            (this.diffHoursAfterDays() > 0 ? this.diffHoursAfterDays() + (this.diffHoursAfterDays() === 1 ? ' hour, ' : ' hours, ') : '') +
+            (this.diffMinutesAfterHours() > 0 ? this.diffMinutesAfterHours() + (this.diffMinutesAfterHours() === 1 ? ' minute, ' : ' minutes, ') : '') +
+            (this.diffSecondsAfterMinutes() > 0 ? this.diffSecondsAfterMinutes() + (this.diffSecondsAfterMinutes() === 1 ? ' second' : ' seconds') : '')
         );
     }
 }
