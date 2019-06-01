@@ -11,6 +11,7 @@ export interface PortfolioProject {
     personal: boolean;
     client: boolean;
     W2: boolean;
+    other?: string; // if not personal, client, or W2
     logoString?: string;
     logoBgColor?: Color;
 }
@@ -23,6 +24,7 @@ const projectWatchFlippers: PortfolioProject = {
     personal: false,
     client: true,
     W2: false,
+    other: undefined,
     logoString: 'wflogo.png',
     logoBgColor: 'black'
 };

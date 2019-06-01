@@ -9,6 +9,8 @@ export default class PagePortfolio extends React.PureComponent<Props> {
   render() {
     return (
       <div>
+        <h2>Under Construction</h2>
+        Please ignore everything on this page
         <ProjectThumbnail
           name='WatchFlippers'
           tagline='An App'
