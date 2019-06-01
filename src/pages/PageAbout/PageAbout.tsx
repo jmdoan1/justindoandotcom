@@ -128,7 +128,7 @@ export default class PageAbout extends React.PureComponent<Props, State> {
     render() {
         var source;
         if (this.state.displayedImageName !== '') {
-            source = require('../../assets/images/About/' + this.state.displayedImageName);
+            source = require('../../assets/images/AboutImages/' + this.state.displayedImageName);
         }
 
         const factDisplay = [];

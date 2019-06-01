@@ -11,9 +11,9 @@ export interface Props extends RouteComponentProps {
 
 class JDHeader extends React.PureComponent<Props> {
     getClassName(path: string): string {
-        const currentPath = this.props.location.pathname
+        const currentPath = this.props.location.pathname;
 
-        var returnClass = 'JDHeaderButton'
+        var returnClass = 'JDHeaderButton';
 
         if (currentPath.toLowerCase() === path.toLowerCase() ||
             (!this.props.routes.map(rt => rt.path).includes(currentPath) &&

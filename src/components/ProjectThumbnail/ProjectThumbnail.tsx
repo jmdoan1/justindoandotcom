@@ -19,7 +19,7 @@ export default class ProjectThumbnail extends React.PureComponent<Props> {
     render() {
         let logoDisplay = null
         if (this.props.logoString) {
-            const image = require('../../assets/images/' + this.props.logoString)
+            const image = require('../../assets/images/ProjectImages/' + this.props.logoString)
             logoDisplay = (
                 <img
                     alt={this.props.logoString}

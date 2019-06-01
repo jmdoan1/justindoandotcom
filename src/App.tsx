@@ -1,9 +1,9 @@
 import * as React from 'react';
 import './App.css';
-import PagePortfolio from './components/PagePortfolio/PagePortfolio';
 import JDHeader from './components/JDHeader/JDHeader';
-import PageAbout from './components/PageAbout/PageAbout';
-import PageTutorials from './components/PageTutorials/PageTutorials';
+import PagePortfolio from './pages/PagePortfolio/PagePortfolio';
+import PageAbout from './pages/PageAbout/PageAbout';
+import PageTutorials from './pages/PageTutorials/PageTutorials';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 class App extends React.Component {

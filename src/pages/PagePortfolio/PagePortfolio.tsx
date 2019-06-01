@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ProjectThumbnail from '../ProjectThumbnail/ProjectThumbnail';
+import ProjectThumbnail from '../../components/ProjectThumbnail/ProjectThumbnail';
 
 export interface Props {
   placeholderprop?: string;
