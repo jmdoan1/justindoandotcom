@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as Shortcuts from '../../utility/Shortcuts';
 import { DateDiff } from '../../utility/DateStuff';
-import './PageAbout.css'
+import './PageAbout.css';
 
 export interface Props {
     name?: string;

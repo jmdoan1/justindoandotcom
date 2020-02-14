@@ -5,6 +5,8 @@ import PagePortfolio from './pages/PagePortfolio/PagePortfolio';
 import PageAbout from './pages/PageAbout/PageAbout';
 import PageTutorials from './pages/PageTutorials/PageTutorials';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { initializeApp } from 'firebase';
+import { config } from './config';
 
 class App extends React.Component {
   private routes = [
@@ -28,6 +30,14 @@ class App extends React.Component {
 
   private defaultComponent = () => <PagePortfolio />;
   private defaultEquivalent = '/projects';
+
+  componentWillMount() {
+    initializeApp({
+      apiKey: config.fbApiKey,
+      authDomain: config.fbAuthDomain,
+      projectId: config.fbProjectId
+    });
+  }
 
   public render() {
     const mappedRoutes = (

@@ -98,14 +98,14 @@ export class DateDiff {
      * *  e.g. 4/15/2018 - 3/15/2019: Years were just calculated at 1 
      * *  but need to be reduced to 0
      * 2. If the months are the same AND THE DAYS had to be rolled back
-     * *  eg. 4/15/2018 - 4/14/2019 Years and months were just caluclated at 1 and 0 
+     * *  eg. 4/15/2018 - 4/14/2019 Years and months were just calculated at 1 and 0 
      * *  but both need to be rolled back to 0 and 11
      * 
      * This logic flows ALL the way through to milliseconds such that 
      * * 4/15/2018 02:15:3000 AM - 4/15/2019 02:15:2999
      * 
      * triggers secondsNeedRollback, which triggers minutesNeedRollback, etc. etc. turning original calculations
-     * * from 1 year, 0 months, 0 days, 0 hours, 0 minuts, 0 seconds, and -1 milliseconds
+     * * from 1 year, 0 months, 0 days, 0 hours, 0 minutes, 0 seconds, and -1 milliseconds
      * * into 0 years, 11 months, 30 days, 23 hours, 59 minutes, 59 seconds, and 999 milliseconds
      */
     private yearsNeedRollback(): boolean {
