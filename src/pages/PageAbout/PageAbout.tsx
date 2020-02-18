@@ -9,12 +9,10 @@ export interface Props {
 }
 
 export interface State {
-    displayedImageName: string;
     ageString: string;
 }
 
 export default class PageAbout extends React.PureComponent<Props, State> {
-    private imageTimer: NodeJS.Timer | undefined;
     private ageTimer: NodeJS.Timer | undefined;
 
     private dobString = 'March 8, 1990 05:21:00 AM EST';
@@ -90,24 +88,12 @@ export default class PageAbout extends React.PureComponent<Props, State> {
             new Date()
         ).totalTimeString();
 
-        if (this.fileNames.length > 0) {
-            this.state = { displayedImageName: this.fileNames[0], ageString: constructorAgeString };
-        } else {
-            this.state = { displayedImageName: '', ageString: constructorAgeString };
-        }
-
-        if (this.fileNames.length > 1) {
-            this.imageTimer = setInterval(() => this.cycleImages(), 2000);
-        }
+        this.state = { ageString: constructorAgeString };
 
         this.ageTimer = setInterval(() => this.cycleAgeText(), 500);
     }
 
     componentWillUnmount() {
-        if (this.imageTimer) {
-            clearInterval(this.imageTimer);
-        }
-
         if (this.ageTimer) {
             clearInterval(this.ageTimer);
         }
@@ -117,21 +103,7 @@ export default class PageAbout extends React.PureComponent<Props, State> {
         this.setState({ ageString: new DateDiff(this.dob, new Date()).totalTimeString() });
     }
 
-    private cycleImages() {
-        const currentIndex = this.fileNames.indexOf(this.state.displayedImageName || '');
-        const newIndex = Shortcuts.loopIndex(currentIndex, this.fileNames.length);
-
-        if (newIndex !== undefined) {
-            this.setState({ displayedImageName: this.fileNames[newIndex] });
-        }
-    }
-
     render() {
-        var source;
-        if (this.state.displayedImageName !== '') {
-            source = require('../../assets/images/' + this.state.displayedImageName);
-        }
-
         const factDisplay = [];
         if (this.facts.length > 0) {
             factDisplay.push(<h2 key={Math.random()} style={{ textAlign: 'center' }}>Quick Facts</h2>);
@@ -203,7 +175,6 @@ export default class PageAbout extends React.PureComponent<Props, State> {
 
         return (
             <div className='AboutPage'>
-                <img src={source} className='AboutImage' />
                 <JDSlideshow fileUrls={this.fileNames} />
                 <div className='AboutText'>
                     <h1>Who am I?</h1>
