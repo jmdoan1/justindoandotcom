@@ -1,0 +1,12 @@
+.AboutImage{
+    float: left;
+    width: 30vw;
+    height: 80vh;
+    margin-right: 3vw; /* match .AboutText's */
+    margin-bottom:3vw;
+    border-top-left-radius: 5%;
+    border-top-right-radius: 5%;
+    border-bottom-right-radius: 5%;
+    border-bottom-left-radius: 5%;
+    object-fit: cover;
+}
