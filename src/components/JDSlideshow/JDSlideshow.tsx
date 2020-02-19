@@ -1,9 +1,9 @@
 import * as React from 'react';
-import './JDSlideshow.css';
 import * as Shortcuts from '../../utility/Shortcuts';
 
 export interface Props {
     fileUrls: string[];
+    testProp?: any;
 }
 
 export interface State {
@@ -42,7 +42,7 @@ export default class JDSlideshow extends React.PureComponent<Props, State> {
 
     render() {        
         return (
-            <img src={this.state.displayedImageUrl} className='AboutImage' />
+            <img src={this.state.displayedImageUrl} style={{all: 'inherit'}} />
         );
     }
 }

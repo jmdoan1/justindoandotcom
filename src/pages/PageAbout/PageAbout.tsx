@@ -185,7 +185,9 @@ export default class PageAbout extends React.PureComponent<Props, State> {
 
         return (
             <div className='AboutPage'>
-                <JDSlideshow fileUrls={this.fileUrls} />
+                <div className='AboutImage'>
+                    <JDSlideshow fileUrls={this.fileUrls} />
+                </div>
                 <div className='AboutText'>
                     <h1>Who am I?</h1>
                     I am a self-taught developer with a formal education and ~6 years of full time experience in accounting and finance. I started learning native iOS development in 2015, freelancing iOS in 2017, and, as of 2018, have now moved on to full time employment and freelancing in multiple frameworks, platforms, and laguages.
