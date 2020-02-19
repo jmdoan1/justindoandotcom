@@ -15,7 +15,6 @@ export default class JDSlideshow extends React.PureComponent<Props, State> {
 
     constructor(props: Props) {
         super(props);
-
         if (this.props.fileUrls.length > 0) {
             this.state = { displayedImageUrl: this.props.fileUrls[0] };
         } else {
@@ -41,20 +40,9 @@ export default class JDSlideshow extends React.PureComponent<Props, State> {
         }
     }
 
-    render() {
-        var source;
-        if (this.state.displayedImageUrl !== '') {
-            if (this.state.displayedImageUrl.indexOf('http') == 0) {
-                source = this.state.displayedImageUrl;
-            } else {
-                source = require('../../assets/images/' + this.state.displayedImageUrl);
-            }
-        } else {
-            this.cycleImages()
-        }
-        
+    render() {        
         return (
-            <img src={source} className='AboutImage' />
+            <img src={this.state.displayedImageUrl} className='AboutImage' />
         );
     }
 }

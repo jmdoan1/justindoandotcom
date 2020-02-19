@@ -73,12 +73,14 @@ export default class PageAbout extends React.PureComponent<Props, State> {
     ])
 
     private fileNames = Shortcuts.randomize([
-        'AboutImages/BlueUnderBridge.jpg',
-        'AboutImages/BeachMouseRat.jpg',
-        'AboutImages/Powells.jpg',
-        'AboutImages/BarCampPodium.png',
-        'AboutImages/AGTCBus.jpg'
+        'BlueUnderBridge.jpg',
+        'BeachMouseRat.jpg',
+        'Powells.jpg',
+        'BarCampPodium.png',
+        'AGTCBus.jpg'
     ]);
+
+    private fileUrls: string[] = []
 
     constructor(props: Props) {
         super(props);
@@ -91,6 +93,14 @@ export default class PageAbout extends React.PureComponent<Props, State> {
         this.state = { ageString: constructorAgeString };
 
         this.ageTimer = setInterval(() => this.cycleAgeText(), 500);
+        
+        this.fileNames.forEach((fileName) => {
+            try {
+                this.fileUrls.push(require('../../assets/images/AboutImages/' + fileName))
+            } catch(e) {
+                console.log(e)
+            }
+        })
     }
 
     componentWillUnmount() {
@@ -175,7 +185,7 @@ export default class PageAbout extends React.PureComponent<Props, State> {
 
         return (
             <div className='AboutPage'>
-                <JDSlideshow fileUrls={this.fileNames} />
+                <JDSlideshow fileUrls={this.fileUrls} />
                 <div className='AboutText'>
                     <h1>Who am I?</h1>
                     I am a self-taught developer with a formal education and ~6 years of full time experience in accounting and finance. I started learning native iOS development in 2015, freelancing iOS in 2017, and, as of 2018, have now moved on to full time employment and freelancing in multiple frameworks, platforms, and laguages.
