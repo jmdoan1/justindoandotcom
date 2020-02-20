@@ -3,7 +3,7 @@ import * as Shortcuts from '../../utility/Shortcuts';
 
 export interface Props {
     fileUrls: string[];
-    testProp?: any;
+    className?: string;
 }
 
 export interface State {
@@ -42,7 +42,7 @@ export default class JDSlideshow extends React.PureComponent<Props, State> {
 
     render() {        
         return (
-            <img src={this.state.displayedImageUrl} style={{all: 'inherit'}} />
+            <img src={this.state.displayedImageUrl} className={this.props.className || ''} />
         );
     }
 }
