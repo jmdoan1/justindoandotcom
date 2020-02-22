@@ -1,6 +1,7 @@
 import * as React from 'react';
 import './ProjectThumbnail.css';
 import { Color } from 'csstype';
+import JDSlideshow from '../../components/JDSlideshow/JDSlideshow';
 
 export interface Props {
     name: string;
@@ -19,13 +20,13 @@ export default class ProjectThumbnail extends React.PureComponent<Props> {
     render() {
         let logoDisplay = null
         if (this.props.logoString) {
-            const image = require('../../assets/images/ProjectImages/' + this.props.logoString)
+            const image = require('../../assets/images/ProjectImages/' + this.props.logoString);
             logoDisplay = (
-                <img
+                <JDSlideshow
                     alt={this.props.logoString}
                     className='ThumbnailLogo'
                     style={{ backgroundColor: this.props.logoBgColor || '' }}
-                    src={String(image)}
+                    fileUrls={[String(image)]}
                 />
             );
         }

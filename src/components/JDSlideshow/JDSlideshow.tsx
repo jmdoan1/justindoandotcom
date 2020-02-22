@@ -6,6 +6,8 @@ export interface Props {
     durationSeconds?: number;
     randomize?: boolean;
     className?: string;
+    alt?: string;
+    style?: React.CSSProperties;
 }
 
 export interface State {
@@ -52,7 +54,12 @@ export default class JDSlideshow extends React.PureComponent<Props, State> {
 
     render() {        
         return (
-            <img src={this.state.displayedImageUrl} className={this.props.className || ''} />
+            <img
+                src={this.state.displayedImageUrl}
+                className={this.props.className}
+                alt={this.props.alt}
+                style={this.props.style} 
+            />
         );
     }
 }
