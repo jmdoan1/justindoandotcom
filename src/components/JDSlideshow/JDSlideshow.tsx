@@ -1,8 +1,10 @@
 import * as React from 'react';
-import * as Shortcuts from '../../utility/Shortcuts';
+import {loopIndex, randomize} from '../../utility/Shortcuts';
 
 export interface Props {
     fileUrls: string[];
+    durationSeconds?: number;
+    randomize?: boolean;
     className?: string;
 }
 
@@ -12,16 +14,24 @@ export interface State {
 
 export default class JDSlideshow extends React.PureComponent<Props, State> {
     private imageTimer: NodeJS.Timer | undefined;
+    private sourceURLs: string[]
 
     constructor(props: Props) {
         super(props);
-        if (this.props.fileUrls.length > 0) {
-            this.state = { displayedImageUrl: this.props.fileUrls[0] };
+
+        if (this.props.randomize) {
+            this.sourceURLs = randomize(this.props.fileUrls);
+        } else {
+            this.sourceURLs = this.props.fileUrls;
+        }
+
+        if (this.sourceURLs.length > 0) {
+            this.state = { displayedImageUrl: this.sourceURLs[0] };
         } else {
             this.state = { displayedImageUrl: '' };
         }
-        if (this.props.fileUrls.length > 1) {
-            this.imageTimer = setInterval(() => this.cycleImages(), 2000);
+        if (this.sourceURLs.length > 1) {
+            this.imageTimer = setInterval(() => this.cycleImages(), (this.props.durationSeconds || 1) * 1000);
         }
     }
 
@@ -32,11 +42,11 @@ export default class JDSlideshow extends React.PureComponent<Props, State> {
     }
 
     private cycleImages() {
-        const currentIndex = this.props.fileUrls.indexOf(this.state.displayedImageUrl);
-        const newIndex = Shortcuts.loopIndex(currentIndex, this.props.fileUrls.length);
+        const currentIndex = this.sourceURLs.indexOf(this.state.displayedImageUrl);
+        const newIndex = loopIndex(currentIndex, this.sourceURLs.length);
 
         if (newIndex !== undefined) {
-            this.setState({ displayedImageUrl: this.props.fileUrls[newIndex] });
+            this.setState({ displayedImageUrl: this.sourceURLs[newIndex] });
         }
     }
 
